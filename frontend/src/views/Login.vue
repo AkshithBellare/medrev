@@ -1,49 +1,44 @@
 <template>
-  <div class="form">
-      <h1>Login</h1>
-      
-      <BaseInput placeholder="Username or Email" type="text"     v-model="username" />
-      <BaseInput placeholder="password"          type="password" v-model="password" />
-      
-      <BaseButton @performAction="performLogin">Login</BaseButton>
-  </div>
+    <div class="auth-page">
+        <form @submit.prevent="onSubmit(username, password)">
+            <fieldset>
+                <input type="text" placeholder="Username" v-model="username"/>
+            </fieldset>
+
+            <fieldset>
+                 <input type="text" placeholder="Username" v-model="password"/>
+            </fieldset>
+
+            <button>Sign in</button>
+        </form>
+    </div>
 </template>
 
 <script>
 
+import { LOGIN, CHECK_AUTH } from "../store/actions.type"
 export default {
-  data() {
-    return {
-      username: "",
-      password: "",
-    };
-  },
-  methods: {
-    performLogin() {
-      this.$store
-        .dispatch("retrieveToken", {
-          username: this.username,
-          password: this.password,
-        })
-        .then((response) => {
-          console.log(response);
-          this.$router.push({ name: "profile" });
-        });
+    name: "MedRevLogin",
+    data() {
+        return {
+            username: null,
+            password: null,
+        }
     },
-  },
-};
+
+    methods: {
+        onSubmit(username, password) {
+            this.$store.dispatch(LOGIN, { username, password }).
+            then(this.$store.dispatch(CHECK_AUTH))
+        },
+    },
+}
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap');
-h1 {
-  font-family: Raleway, sans-serif;
-}
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
+    .auth-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 </style>
