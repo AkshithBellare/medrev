@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.30, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.20, for Linux (x86_64)
 --
--- Host: localhost    Database: medrev2
+-- Host: localhost    Database: drugDB
 -- ------------------------------------------------------
--- Server version	5.7.30-0ubuntu0.18.04.1
+-- Server version	8.0.20-0ubuntu0.20.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,11 +21,11 @@
 
 DROP TABLE IF EXISTS `comments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `did` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uid` int NOT NULL,
+  `did` int NOT NULL,
   `comment_desc` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
@@ -51,10 +51,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `disease_authors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `disease_authors` (
-  `disid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
+  `disid` int NOT NULL,
+  `uid` int NOT NULL,
   KEY `disid` (`disid`),
   KEY `uid` (`uid`),
   CONSTRAINT `disease_authors_ibfk_1` FOREIGN KEY (`disid`) REFERENCES `diseases` (`diseaseid`) ON DELETE CASCADE,
@@ -78,10 +78,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `diseases`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `diseases` (
   `name` varchar(255) NOT NULL,
-  `diseaseid` int(11) NOT NULL AUTO_INCREMENT,
+  `diseaseid` int NOT NULL AUTO_INCREMENT,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`diseaseid`),
   UNIQUE KEY `name` (`name`)
@@ -104,10 +104,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `drug_authors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `drug_authors` (
-  `did` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
+  `did` int NOT NULL,
+  `uid` int NOT NULL,
   KEY `did` (`did`),
   KEY `uid` (`uid`),
   CONSTRAINT `drug_authors_ibfk_1` FOREIGN KEY (`did`) REFERENCES `drugs` (`id`) ON DELETE CASCADE,
@@ -131,16 +131,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `drugs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `drugs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `dosage` varchar(255) NOT NULL,
   `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `avg_rating` float DEFAULT '0',
-  `num_of_ratings` int(11) DEFAULT '0',
+  `num_of_ratings` int DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -163,7 +163,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger update_rating before update on drugs for each row begin set @old_avg=(select avg_rating from drugs where id=NEW.id); set @old_num=(select num_of_ratings from drugs where id=NEW.id); set NEW.avg_rating=(@old_avg*@old_num+NEW.avg_rating)/(@old_num+1); set NEW.num_of_ratings=@old_num+1; end */;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `update_rating` BEFORE UPDATE ON `drugs` FOR EACH ROW begin set @old_avg=(select avg_rating from drugs where id=NEW.id); set @old_num=(select num_of_ratings from drugs where id=NEW.id); set NEW.avg_rating=(@old_avg*@old_num+NEW.avg_rating)/(@old_num+1); set NEW.num_of_ratings=@old_num+1; end */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -176,10 +176,10 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `family`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `family` (
-  `member_id` int(11) NOT NULL,
-  `head_id` int(11) NOT NULL,
+  `member_id` int NOT NULL,
+  `head_id` int NOT NULL,
   KEY `member_id` (`member_id`),
   KEY `head_id` (`head_id`),
   CONSTRAINT `family_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
@@ -202,10 +202,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `medication`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `medication` (
-  `uid` int(11) DEFAULT NULL,
-  `drugid` int(11) DEFAULT NULL,
+  `uid` int DEFAULT NULL,
+  `drugid` int DEFAULT NULL,
   KEY `uid` (`uid`),
   KEY `drugid` (`drugid`),
   CONSTRAINT `medication_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE CASCADE,
@@ -229,10 +229,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `patient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `patient` (
-  `uid` int(11) DEFAULT NULL,
-  `disid` int(11) DEFAULT NULL,
+  `uid` int DEFAULT NULL,
+  `disid` int DEFAULT NULL,
   KEY `uid` (`uid`),
   KEY `disid` (`disid`),
   CONSTRAINT `patient_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`),
@@ -255,10 +255,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `similar_drugs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `similar_drugs` (
-  `did` int(11) NOT NULL,
-  `similar_to_id` int(11) NOT NULL,
+  `did` int NOT NULL,
+  `similar_to_id` int NOT NULL,
   KEY `did` (`did`),
   KEY `similar_to_id` (`similar_to_id`),
   CONSTRAINT `similar_drugs_ibfk_3` FOREIGN KEY (`did`) REFERENCES `drugs` (`id`) ON DELETE CASCADE,
@@ -282,10 +282,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `treatment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `treatment` (
-  `disid` int(11) DEFAULT NULL,
-  `drugid` int(11) DEFAULT NULL,
+  `disid` int DEFAULT NULL,
+  `drugid` int DEFAULT NULL,
   KEY `disid` (`disid`),
   KEY `drugid` (`drugid`),
   CONSTRAINT `treatment_ibfk_1` FOREIGN KEY (`disid`) REFERENCES `diseases` (`diseaseid`),
@@ -309,9 +309,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `email` varchar(32) NOT NULL,
   `password` varchar(32) NOT NULL,
@@ -342,7 +342,11 @@ INSERT INTO `users` VALUES (2,'Harsh','harsh1@gmail.com','123456789','harsh2338'
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'medrev2'
+-- Dumping events for database 'drugDB'
+--
+
+--
+-- Dumping routines for database 'drugDB'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `add_comment` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -588,13 +592,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`laharish`@`localhost` PROCEDURE `getlist`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getlist`()
 begin
 select * from users;
 end ;;
@@ -750,13 +754,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`laharish`@`localhost` PROCEDURE `get_user`(uname varchar(32))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user`(uname varchar(32))
 begin
 select * from users
 where username like uname;
@@ -874,46 +878,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `register` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`laharish`@`localhost` PROCEDURE `register`(nm varchar(32), mail varchar(32), pword varchar(32), 
-uname varchar(32), ph varchar(32), bld_grp varchar(10), db date, ht float, wt float,
-gender varchar(3), user_role varchar(10))
-begin
-insert into users(name, email, password, username, ph_number, blood_grp, dob, height, weight, gender, user_role) values(nm, mail, pword, uname, ph, bld_grp, db, ht, wt, gender, user_role);
-end ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `register2` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`laharish`@`localhost` PROCEDURE `register2`(username varchar(10), email varchar(10), password varchar(10))
-begin
-insert into shin_user values(username, email, password);
-end ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `register_user` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -999,4 +963,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-21 13:45:58
+-- Dump completed on 2020-05-21 19:47:26
