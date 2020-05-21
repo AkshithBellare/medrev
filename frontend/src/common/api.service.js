@@ -11,7 +11,7 @@ const ApiService = {
     },
 
     setHeader() {
-        Vue.axios.defaults.headers.common[ "Authorization" ] = `${JwtService.getToken()}`
+        Vue.axios.defaults.headers.common[ "Authorization" ] = `Bearer ${JwtService.getToken()}`
     },
 
     post(resource, params) {

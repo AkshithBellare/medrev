@@ -16,7 +16,7 @@
 
 <script>
 
-import { LOGIN, CHECK_AUTH } from "../store/actions.type"
+import { LOGIN } from "../store/actions.type"
 export default {
     name: "MedRevLogin",
     data() {
@@ -29,16 +29,13 @@ export default {
     methods: {
         onSubmit(username, password) {
             this.$store.dispatch(LOGIN, { username, password }).
-            then(this.$store.dispatch(CHECK_AUTH))
+            then(() => {
+                this.$router.push({ name: "home" })
+            })
         },
     },
 }
 </script>
 
 <style scoped>
-    .auth-page {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
 </style>

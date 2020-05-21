@@ -6,7 +6,7 @@
             </router-link>
             <ul v-if="!isAuthenticated" class="">
                 <li class="">
-                    <router-link :to="{}">Home</router-link>
+                    <router-link :to="{ name: 'home' }">Home</router-link>
                 </li>
 
                 <li class="">
@@ -14,11 +14,11 @@
                 </li>
 
                 <li class="">
-                    <router-link :to="{}">Sign Up</router-link>
+                    <router-link :to="{ name: 'register' }">Sign Up</router-link>
                 </li>
             </ul>
             <ul v-else class="">
-
+                <button v-on:click="logout">LOGOUT</button>
             </ul>
         </div>
     </nav>
@@ -26,11 +26,17 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { LOGOUT } from "../store/actions.type"
 
 export default {
     name: "MedRevHeader",
     computed: {
         ...mapGetters(["currentUser", "isAuthenticated"])
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch(LOGOUT)
+        }
     }
 }
 </script>

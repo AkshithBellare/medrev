@@ -47,20 +47,10 @@ const actions = {
     },
 
     [CHECK_AUTH](context) {
-        if (JwtService.getToken()) {
-            // ApiService.setHeader()
-            // ApiService.get("/profile/me")
-            // .then((response) => {
-            //     context.commit(SET_USER, response.data[0])
-            //     console.log(response);
-            // })
-            // .catch((error) => {
-            //     console.log(error)
-            // })
-
+        if(JwtService.getToken()) {
             return new Promise((resolve, reject) => {
                 ApiService.setHeader()
-                ApiService.post("/profile/me")
+                ApiService.get('/profile/me')
                 .then((response) => {
                     context.commit(SET_USER,  response.data[0])
                     resolve(response)
@@ -87,6 +77,7 @@ const mutations = {
 
     [PURGE_AUTH](state) {
         state.isAuthenticated = false
+        state.user = {}
         JwtService.destroyToken();
     }
 }
