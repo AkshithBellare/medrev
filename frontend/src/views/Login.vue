@@ -1,15 +1,19 @@
 <template>
-    <div class="auth-page">
+    <div class="auth-form">
+            <h1>Sign in</h1>
+            <router-link :to="{ name: 'register'}"><h2>Don't have an account?</h2></router-link>
+
         <form @submit.prevent="onSubmit(username, password)">
             <fieldset>
                 <input type="text" placeholder="Username" v-model="username"/>
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Password" v-model="password"/>
+                 <input type="password" placeholder="Password" v-model="password"/>
             </fieldset>
 
-            <button>Sign in</button>
+            <button :click="onSubmit"><h2>LOGIN</h2></button>
+
         </form>
     </div>
 </template>
@@ -38,4 +42,24 @@ export default {
 </script>
 
 <style scoped>
+    .auth-form {
+        width: 35%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .auth-form > h1 {
+        font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-weight: 400;
+        margin-bottom: 10px;
+    }
+
+    .auth-form > a {
+        color: #56893c;
+        font-family: 'Raleway', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    form {
+        padding-top: 30px;
+    }
 </style>

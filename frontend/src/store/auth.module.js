@@ -10,11 +10,13 @@ import {
     SET_AUTH,
     PURGE_AUTH,
     SET_USER,
+    SET_ERROR
 } from "./mutations.type"
 
 const state = {
     user: {},
-    isAuthenticated: !!JwtService.getToken()
+    isAuthenticated: !!JwtService.getToken(),
+    errors: null,
 }
 
 const getters = {
@@ -37,6 +39,7 @@ const actions = {
             })
             .catch((error) => {
                 console.log(error)
+                context.commit(SET_ERROR,error);
                 reject(error)
             })
         }) 
@@ -79,7 +82,11 @@ const mutations = {
         state.isAuthenticated = false
         state.user = {}
         JwtService.destroyToken();
-    }
+    },
+
+    [SET_ERROR](state, error) {
+        state.errors = error.message
+    },
 }
 
 export default {
