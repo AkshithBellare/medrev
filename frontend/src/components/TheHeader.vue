@@ -6,20 +6,26 @@
 			<nav>
                 <ul v-if="!isAuthenticated" class="">
                     <li class="">
+                        <img src="../assets/home.png" class="icon"/>
                         <router-link :to="{ name: 'home' }">Home</router-link>
                     </li>
 
                     <li class="">
-                        <router-link :to="{ name: 'login' }">Sign In</router-link>
+                        <img src="../assets/login.png" class="icon"/>
+                        <router-link :to="{ name: 'login' }"><span class="login"></span>Sign In</router-link>
                     </li>
 
                     <li class="">
+                        <img src="../assets/signup.png" class="icon"/>
                         <router-link :to="{ name: 'register' }">Sign Up</router-link>
                     </li>
                 </ul>
 
                 <ul v-else class="">
-                    <button v-on:click="logout">LOGOUT</button>
+                    <li>
+                    <img src="../assets/logout.png" class="icon"/>
+                    <a @click="logout">Logout</a>
+                    </li>
                 </ul>
     		</nav>
     </header>
@@ -43,11 +49,17 @@ export default {
 </script>
 
 <style scoped>
+     * {
+        font-family: 'Roboto','sans-serif';
+     }
 	header,
     nav {
         display: flex;
     }
 
+    img {
+        margin: 0;
+    }
     header {
         flex-direction: row;
         justify-content: space-between;
@@ -59,18 +71,20 @@ export default {
         padding-left: 5%;
         font-size: 1.5em;
         margin: 0;
-
+        color: #3f6826;
+        font-weight: 500;
     }
 
     nav a {
-        padding: 10px 15px;
+        padding-left: 5px;
+        padding-right: 20px;
         text-transform: uppercase;
         text-align: center;
-        color: #696966;
+        color: #bebebe;
     }
 
     nav a:hover {
-        color: #464646;
+        color: #808080;
     }
 
     nav a.router-link-exact-active {
@@ -88,5 +102,14 @@ export default {
     a{
         text-decoration: none;
 
+    }
+
+    .login {
+        background: url('../assets/login.png');
+    }
+
+    .icon {
+        height: 15px;
+        width: 15px;
     }
 </style>
