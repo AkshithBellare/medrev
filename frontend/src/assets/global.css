@@ -20,6 +20,7 @@ input {
     border: 1px solid #dcdcdc;
     padding-left: 10px;
     margin-bottom: 20px;
+    font-size: 1.4em;
 }
 
 button {
@@ -33,7 +34,7 @@ button {
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: gray;
     font-family: 'Roboto',Arial, Helvetica, sans-serif;
-    font-size: 1.4em;
+    /* font-size: 1.4em; */
   }
   ::-moz-placeholder { /* Firefox 19+ */
     color: gray;
