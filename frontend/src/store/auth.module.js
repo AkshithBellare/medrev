@@ -50,7 +50,7 @@ const actions = {
         if(JwtService.getToken()) {
             return new Promise((resolve, reject) => {
                 ApiService.setHeader()
-                ApiService.get('/profile/me')
+		ApiService.get('/profile/me')
                 .then((response) => {
                     context.commit(SET_USER,  response.data[0])
                     resolve(response)
