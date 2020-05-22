@@ -6,7 +6,7 @@
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Username" v-model="password"/>
+                 <input type="text" placeholder="Password" v-model="password"/>
             </fieldset>
 
             <button>Sign in</button>

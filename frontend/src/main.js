@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import "../src/assets/global.css"
 import ApiService from "./common/api.service"
 Vue.config.productionTip = false;
 
