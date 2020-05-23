@@ -12,8 +12,7 @@
                  <input type="password" placeholder="Password" v-model="password"/>
             </fieldset>
 
-            <button :click="onSubmit"><h2>LOGIN</h2></button>
-
+            <input type="submit" name="login" id="submit" value="LOGIN">
         </form>
     </div>
 </template>

@@ -31,6 +31,11 @@ button {
     color: #ffffff;
 }
 
+input[type="submit"] {
+  color: white;
+  background: #56893c;
+}
+
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: gray;
     font-family: 'Roboto',Arial, Helvetica, sans-serif;
