@@ -45,9 +45,10 @@
                  <input type="text" placeholder="Gender" v-model="user.gender"/>
             </fieldset>
             </div>
-
+            
             <fieldset>
-                <input type="checkbox" class="checkbox">
+                <input type="checkbox" class="checkbox" name="user-role">
+                <label>Are you a pharmacist?</label>
             </fieldset>
 
             <input type="submit" name="login" id="submit" value="SIGNUP">
