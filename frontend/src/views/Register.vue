@@ -28,6 +28,7 @@
                  <input type="number" placeholder="Phone Number" v-model="user.ph_number"/>
             </fieldset>
 
+            <div class="b-h-w-g">
             <fieldset>
                  <input type="text" placeholder="Blood group" v-model="user.blood_grp"/>
             </fieldset>
@@ -43,6 +44,7 @@
             <fieldset>
                  <input type="text" placeholder="Gender" v-model="user.gender"/>
             </fieldset>
+            </div>
 
             <fieldset>
                 <input type="checkbox" class="checkbox">
@@ -99,5 +101,15 @@ export default {
 
     .checkbox {
         height: 20px;
+    }
+
+    .b-h-w-g {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .b-h-w-g > fieldset {
+        width: 24%;
     }
 </style>
