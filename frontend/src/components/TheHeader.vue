@@ -12,20 +12,30 @@
 
                     <li class="">
                         <img src="../assets/login.png" class="icon"/>
-                        <router-link :to="{ name: 'login' }"><span class="login"></span>Sign In</router-link>
+                        <router-link :to="{ name: 'login' }"><span class="login"></span>Signin</router-link>
                     </li>
 
                     <li class="">
                         <img src="../assets/signup.png" class="icon"/>
-                        <router-link :to="{ name: 'register' }">Sign Up</router-link>
+                        <router-link :to="{ name: 'register' }">Signup</router-link>
                     </li>
                 </ul>
 
                 <ul v-else class="">
+                    <li class="">
+                        <img src="../assets/home.png" class="icon"/>
+                        <router-link :to="{ name: 'home' }">Home</router-link>
+                    </li>
+
+                     <li v-if="isAuthenticated">
+                    <router-link :to="{ name: 'overview' }">@{{ currentUser.username }}</router-link>
+                    </li>
+
                     <li>
                     <img src="../assets/logout.png" class="icon"/>
                     <a @click="logout">Logout</a>
                     </li>
+
                 </ul>
     		</nav>
     </header>
@@ -43,6 +53,7 @@ export default {
     methods: {
         logout() {
             this.$store.dispatch(LOGOUT)
+            .then(() => {this.$router.push({ name: 'home' })})
         }
     }
 }
@@ -78,7 +89,6 @@ export default {
     nav a {
         padding-left: 5px;
         padding-right: 20px;
-        text-transform: uppercase;
         text-align: center;
         color: #bebebe;
     }

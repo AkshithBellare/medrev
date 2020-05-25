@@ -18,8 +18,12 @@ const routes = [
     path: "/register",
     name: "register",
     component: () => import("@/views/Register")
+  },
+  {
+    path: "/overview",
+    name: "overview",
+    component: () => import("@/views/UserPage")
   }
-
 ];
 
 const router = new VueRouter({

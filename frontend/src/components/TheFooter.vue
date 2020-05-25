@@ -18,6 +18,7 @@ export default {
         padding-top: 0.5em;
         padding-bottom: 0.5em;
         justify-content: center;
+        background: #d2f8d2;
     }
     .attribution {
         font-family: 'Raleway', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
