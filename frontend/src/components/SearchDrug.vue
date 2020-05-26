@@ -6,7 +6,8 @@
 
         <div class="results">
             <ul>
-                <li v-for="drug in getDrugResults" v-bind:key="drug.id">
+                <li v-if="getDrugResults.length == 0" class="noresult">No Drug by that name</li>
+                <li v-for="drug in getDrugResults" v-bind:key="drug.id" @click="showDrugPage">
                     {{ drug }}
                 </li>
             </ul>
@@ -31,6 +32,10 @@ export default {
     methods: {
         search() {
             this.$store.dispatch(SEARCH_DRUGS, this.searchStr)
+        },
+
+        showDrugPage() {
+            this.$router.push({ name: 'register' })
         }
     },
 }
@@ -51,7 +56,7 @@ export default {
 .input-container > input {
     margin-bottom: 0;
     border: none;
-    border-radius: 4px 4px 0px 0px;
+    border-radius: 4px 4px 0px 0p56893cx;
 }
  .results {
      
@@ -65,9 +70,18 @@ export default {
      list-style: none;
  }
 
+ li:hover {
+     color: #56893c;
+ }
+
 .shadow {
   -moz-box-shadow:    3px 3px 5px 6px #ccc;
   -webkit-box-shadow: 3px 3px 5px 6px #ccc;
    box-shadow:         3px 3px 5px 6px #ccc;
+}
+
+.noresult {
+    color: red;
+    font-size: 1.4em;
 }
 </style>

@@ -22,23 +22,32 @@ searchCon.search = (req, res, next) => {
 };
 
 searchCon.get_drug = (req, res, next) => {
-    var query = `CALL get_drug('${req.query.name}')`;
-    //var query = `select drugs.*, comments.comment_desc, users.username from comments inner join drugs on drugs.id = comments.did inner join users on users.id = comments.uid where drugs.name = '${req.query.name}';`
-    //console.log(query)
+    var query = `CALL get_drug_details('${req.query.name}')`;
     db.query(query, true, (err, results, fields) => {
         if(err){
             res.status(404).json({message: 'Error '+ err});
         } else {
-
+            console.log(results[0][0])
             var drug = {};
             var comment_entry = [];
-            results[0].forEach((element, ind) => {
-                //console.log("ELEMENT ", element, "INDEX", ind)
-                comment_entry[ind] = {
-                    name : element.username,
-                    comment : element.comment_desc
+
+            var query1 = `CALL get_comments(${results[0][0].id})`;
+            console.log(query1);
+            db.query(query1, true, (err, results, fields) => {
+                if(err) {
+                    console.log(err)
+                } else {
+                    results[0].forEach((element, ind) => {
+                        comment_entry[ind] = {
+                            name: element.username,
+                            comment: element.comment_desc
+                        }
+                    })
+                    console.log("within--",comment_entry)
                 }
-            });
+            })
+        
+            console.log("Comment entry--->",comment_entry)
 
             drug = {
                 name : results[0][0].name,
