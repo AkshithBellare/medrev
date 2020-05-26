@@ -102,4 +102,8 @@ export default {
   padding: 4px;
 }
 
+.user-details {
+    height: 100vh;
+}
+
 </style>

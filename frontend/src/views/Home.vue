@@ -4,13 +4,19 @@
         <h1>MEDREV</h1>
         <h2>A place to search Drugs</h2>
     </div>
+            <SearchDrug/>
     </div>
 
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import SearchDrug from '../components/SearchDrug';
 export default {
+    components: {
+        SearchDrug,
+    },
+
     computed: {
         ...mapGetters(["isAuthenticated", "currentUser"])
     }
