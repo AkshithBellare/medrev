@@ -1,5 +1,12 @@
 <template>
-    <div>Loading drug data...</div>
+    <div>
+        <h1>{{getDrug.name}}</h1>
+        <h2>{{getDrug.description}}</h2>
+        <h2>{{getDrug.dosage}}</h2>
+        <div v-for="comment in getCurDrugComments" v-bind:key="comment.did">
+            {{comment}}
+        </div>
+    </div>
 </template>
 
 <script>
@@ -15,7 +22,7 @@ export default {
     },
 
     computed: {
-        ...mapGetters(["getDrug"])
+        ...mapGetters(["getDrug", "getCurDrugComments"])
     },
     
     created() {
