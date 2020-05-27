@@ -7,7 +7,7 @@
         <div class="results">
             <ul>
                 <li v-if="getDrugResults.length == 0" class="noresult">No Drug by that name</li>
-                <li v-for="drug in getDrugResults" v-bind:key="drug.id" @click="showDrugPage">
+                <li v-for="drug in getDrugResults" v-bind:key="drug.id" @click="showDrugPage(drug)">
                     {{ drug }}
                 </li>
             </ul>
@@ -34,8 +34,8 @@ export default {
             this.$store.dispatch(SEARCH_DRUGS, this.searchStr)
         },
 
-        showDrugPage() {
-            this.$router.push({ name: 'register' })
+        showDrugPage(drug) {
+            this.$router.push('/drug/' + drug);
         }
     },
 }

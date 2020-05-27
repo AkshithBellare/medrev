@@ -23,7 +23,12 @@ const routes = [
     path: "/overview",
     name: "overview",
     component: () => import("@/views/UserPage")
+  },
+  {
+    path: "/drug/:name",
+    component: () => import("@/components/DrugPage")
   }
+
 ];
 
 const router = new VueRouter({
