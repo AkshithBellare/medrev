@@ -29,41 +29,39 @@ searchCon.get_drug = (req, res, next) => {
         } else {
             console.log(results[0][0])
             var drug = {};
-            var comment_entry = [];
 
-            var query1 = `CALL get_comments(${results[0][0].id})`;
-            console.log(query1);
-            db.query(query1, true, (err, results, fields) => {
-                if(err) {
-                    console.log(err)
-                } else {
-                    results[0].forEach((element, ind) => {
-                        comment_entry[ind] = {
-                            name: element.username,
-                            comment: element.comment_desc
-                        }
-                    })
-                    console.log("within--",comment_entry)
-                }
-            })
-        
-            console.log("Comment entry--->",comment_entry)
-
+            if(results[0][0]) {
             drug = {
+                id: results[0][0].id,
                 name : results[0][0].name,
                 description : results[0][0].description,
                 dosage : results[0][0].dosage,
                 ratings : results[0][0].ratings,
-                comments : comment_entry
             }
 
             //console.log(results);
-
+            }
             res.status(200).send(
                 drug
             )
         }
     });
 };
+
+searchCon.get_drug_comments = (req, res, next) => {
+    var query = `CALL get_comments('${req.query.id}')`;
+    var comments = [];
+    db.query(query, true, (err, results, fields) => {
+        if(err){
+            res.status(404).json({message: "Error" + err});
+        } else {
+            results[0].forEach((element, index) => {
+                comments[index] = element
+            })
+
+            res.status(200).send(comments)
+        }
+    })
+}
 
 module.exports = searchCon;
