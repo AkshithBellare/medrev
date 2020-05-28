@@ -1,45 +1,47 @@
 <template>
-    <div class="user-details">
-        <div class="user-banner">
-            <div>
-                <img src="@/assets/user.png" alt="" class="user-icon">
-            </div>
-            <h1>{{ currentUser.username }}</h1>
-        </div>
+    <div class="userpage">
+  <div class="user-banner">
+    <div class="user-image">
+     <img src="@/assets/user.png">
+    </div>
     
-    <div class="user-info">
-        <div class="detail">
-            <div class="label"><h1>Name</h1></div>
-            <div class="data"><h1>{{ currentUser.name }}</h1></div>
-        </div>
+    <div class="username">
+      <h1>{{ currentUser.username }}</h1>
+    </div>
+  </div>
+  
+  <div class="userdetails shadow">
+    <div class="detail">
+      <div class="label"><h2>Name</h2></div>
+      <div class="det"><h2>{{ currentUser.name }}</h2></div>
+    </div>
   
         <div class="detail">
-            <div class="label"><h1>Date of Birth</h1></div>
-            <div class="data"><h1>{{ currentUser.dob }}</h1></div>
-        </div>
-
-        <div class="detail">
-            <div class="label"><h1>Email</h1></div>
-            <div class="data"><h1>{{ currentUser.email }}</h1></div>
-        </div>
-
-        <div class="detail">
-            <div class="label"><h1>Blood group</h1></div>
-            <div class="data"><h1>{{ currentUser.blood_grp }}</h1></div>
-        </div>
-
-        <div class="detail">
-            <div class="label"><h1>Height</h1></div>
-            <div class="data"><h1>{{ currentUser.height }}</h1></div>
-        </div>
-
-        <div class="detail">
-            <div class="label"><h1>Weight</h1></div>
-            <div class="data"><h1>{{ currentUser.weight }}</h1></div>
-        </div>
+          <div class="label"><h2>Date of Birth</h2></div>
+          <div class="det"><h2>{{currentUser.dob.slice(0, 10)}}</h2></div>
     </div>
     
+        <div class="detail">
+          <div class="label"><h2>Blood Group</h2></div>
+          <div class="det"><h2>{{currentUser.blood_grp}}</h2></div>
     </div>
+    
+        <div class="detail">
+          <div class="label"><h2>Height</h2></div>
+          <div class="det"><h2>{{currentUser.height}}</h2></div>
+    </div>
+    
+        <div class="detail">
+      <div class="label"><h2>Weight</h2>       </div>
+        <div class="det"><h2>{{currentUser.weight}}</h2></div>
+    </div>
+    
+        <div class="detail">
+          <div class="label"><h2>Gender</h2></div>
+          <div class="det"><h2>{{currentUser.gender}}</h2></div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -52,58 +54,84 @@ export default {
 </script>
 
 <style scoped>
- .user-banner > h1 {
-     font-family: 'Roboto', sans-serif;
-     font-weight: 400;
- }
- .user-banner {
-     display: flex;
-     flex-direction: column;
-     height: 20%;
-     background: lightgray;
-     align-items: center;
- }
-
- .user-icon {
-     height: 130px;
-     padding-top: 1.5em;
- }
-
-  * {
-  margin: 0px;
-  padding: 0px; 
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
-.user-info {
+.userpage {
   display: flex;
   flex-direction: column;
-  background: #56893c;
-  width: 60%;
-  border-radius: 8px;
-  justify-content: center;
-  margin: 0 auto;
-  margin-top: 1em;
+}
+
+.user-banner {
+  background: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-image > h1 {
+  font-size: 90px;
+}
+
+.username {
+  padding-bottom: 10px;
+  font-size: 20px;
+}
+
+.user-image > img {
+    height: 8em;
+}
+
+.user-image {
+    margin-top: 1em;
+}
+
+.userdetails {
+  margin: 4em auto;
+  border-radius: 4px;
+  width: 50%;
 }
 
 .detail {
   display: flex;
-  flex-direction: row;
-  margin: 10px;
+  padding: 10px;
 }
 
-.data {
-    color: white;
+.det > h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1.4em;
+}
+
+.label > h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1.4em;
 }
 
 .label {
-  background: #d2f8d2;
-  border-radius: 4px;
-  margin-right: 50px;
-  padding: 4px;
+  padding: 5px;
+  background: lightgreen;
+  border-radius: 4px 0px 0px 4px;
 }
 
-.user-details {
-    height: 100vh;
+.username > h1 {
+    font-family: 'Raleway',sans-serif;
+}
+.det {
+  padding-left: 1em;
+  border-radius: 0px 4px 4px 0px;
+  background: lightsalmon;
+  padding-right: 1em;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
+.shadow {
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+   box-shadow:         3px 3px 5px 6px #ccc;
+}
 </style>
