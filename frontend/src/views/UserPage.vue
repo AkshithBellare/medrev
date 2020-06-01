@@ -2,7 +2,7 @@
     <div class="userpage">
   <div class="user-banner">
     <div class="user-image">
-     <img src="@/assets/user.png">
+     <img src="@/assets/user.jpeg">
     </div>
     
     <div class="username">
@@ -65,23 +65,36 @@ export default {
 }
 
 .user-banner {
-  background: lightgray;
+  background-image: url('../assets/banner.jpeg');
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 
 .user-image > h1 {
   font-size: 90px;
 }
 
 .username {
-  padding-bottom: 10px;
+  color:white;
   font-size: 20px;
+  border-radius: 6px;
+  padding: 5px;
+  margin-bottom: 1em;
+
+background: #0F2027;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .user-image > img {
     height: 8em;
+    border-radius: 50%;
+    border: 4px solid white;
 }
 
 .user-image {

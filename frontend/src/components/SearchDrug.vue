@@ -1,5 +1,7 @@
 <template>
-    <div class="container shadow">
+    <div class="search-page">
+        <h1>Find Drugs</h1>
+    <div class="container">
         <div class="input-container">
             <input type="text" placeholder="Enter Drug name" v-model="searchStr" @change="search()">
         </div>
@@ -13,6 +15,8 @@
             </ul>
         </div>
     </div>
+    </div>
+
 </template>
 
 <script>
@@ -42,6 +46,11 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+    text-align: center;
+    margin-top: 1em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -50,16 +59,16 @@ export default {
     margin-right: auto;
     margin-top: 2em;
     border-radius: 4px 04px 4px 4px;
-    border: 1px solid lightgray;
 }
 
 .input-container > input {
     margin-bottom: 0;
     border: none;
-    border-radius: 4px 4px 0px 0p56893cx;
+    border-radius: 16px 16px 16px 16px;
+    border-bottom: 1px solid lightgray;
 }
  .results {
-     
+     background: white;
  }
  
  li {
@@ -71,7 +80,7 @@ export default {
  }
 
  li:hover {
-     color: #56893c;
+     background: whitesmoke;
  }
 
 .shadow {

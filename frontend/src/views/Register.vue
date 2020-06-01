@@ -3,77 +3,155 @@
             <h1>Sign Up</h1>
             <router-link :to="{ name: 'login'}"><h2>Already a Member?</h2></router-link>
 
-        <form @submit.prevent="onSubmit(username, password)">
+        <form @submit.prevent="onSubmit(user)">
             <fieldset>
-                <input type="text" placeholder="Name" v-model="user.name"/>
+                <input type="text" placeholder="Name" v-model="$v.user.name.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Username" v-model="user.username"/>
+                 <input type="text" placeholder="Username" v-model="$v.user.username.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="email" placeholder="Email" v-model="user.email"/>
+                 <input type="email" placeholder="Email" v-model="$v.user.email.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="password" placeholder="Password" v-model="user.password"/>
+                 <input type="password" placeholder="Password" v-model="$v.user.password.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Date of Birth" v-model="user.dob"/>
+                 <input type="text" placeholder="DOB (yyyy-mm-dd)" v-model="$v.user.dob.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="number" placeholder="Phone Number" v-model="user.ph_number"/>
+                 <input type="number" placeholder="Phone Number" v-model="$v.user.ph_number.$model"/>
             </fieldset>
 
             <div class="b-h-w-g">
             <fieldset>
-                 <input type="text" placeholder="Blood group" v-model="user.blood_grp"/>
+                 <input type="text" placeholder="Blood group" v-model="$v.user.blood_grp.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Height" v-model="user.height"/>
+                 <input type="text" placeholder="Height" v-model="$v.user.height.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Weight" v-model="user.weight"/>
+                 <input type="text" placeholder="Weight" v-model="$v.user.weight.$model"/>
             </fieldset>
             
             <fieldset>
-                 <input type="text" placeholder="Gender" v-model="user.gender"/>
+                 <input type="text" placeholder="Gender (M/F)" v-model="$v.user.gender.$model"/>
             </fieldset>
             </div>
-            
-            <fieldset>
-                <input type="checkbox" class="checkbox" name="user-role">
-                <label>Are you a pharmacist?</label>
-            </fieldset>
-
             <input type="submit" name="login" id="submit" value="SIGNUP">
         </form>
+        <div v-if="errors" class="errors">
+            <p v-if="$v.user.username.$anyError">Username has to be atleast 4 characters long</p>
+            <p v-else-if="$v.user.email.$anyError">Email has to be a valid email</p>
+            <p v-else-if="!$v.user.dob.validDate && $v.user.dob.$anyDirty">The date isn't valid</p>
+            <p v-else-if="$v.user.ph_number.$anyError">Phone number has to be 10 digits long!</p>
+            <p v-else-if="$v.user.gender.validGender">Please enter M for male and F for female</p>
+            <p v-else>This form has'nt been filled properly</p>
+        </div>
+
     </div>
 </template>
 
 <script>
+import { required, email, minLength, maxLength } from 'vuelidate/lib/validators';
+import { REGISTER } from '../store/actions.type';
 export default {
     data() {
         return {
+            uiState: "submit not clicked",
+            errors: false,
+            empty: false,
             user: {
-                name: null,
-                username: null,
-                email: null,
-                password: null,
-                dob: null,
-                ph_number: null,
-                blood_grp: null,
-                height: null,
-                weight: null,
-                gender: null,
-                user_role: null,
+                name: '',
+                username: '',
+                email: '',
+                password: '',
+                dob: '',
+                ph_number: '',
+                blood_grp: '',
+                height: '',
+                weight: '',
+                gender: '',
+                user_role: '',
             }
         }
+    },
+
+    validations: {
+        user: {
+            name: {
+                required,
+            },
+
+            username: {
+                required,
+                minLength: minLength(4),
+            },
+
+            email: {
+                required,
+                email,
+            },
+
+            password: {
+                required,
+            },
+
+            dob: {
+                required,
+                validDate(dob) {
+                    return (/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/.test(dob));
+                },
+            },
+
+            ph_number: {
+                required,
+                minLength: minLength(10),
+                maxLength: maxLength(10),
+            },
+
+            blood_grp: {
+                required,
+            },
+
+            height: {
+                required,
+            },
+
+            weight: {
+                required,
+            },
+
+            gender: {
+                required,
+                validGender(gender) {
+                    return (
+                        /([mMfF])/.test(gender)
+                    );
+                },
+            },
+        },
+    },
+
+    methods: {
+        onSubmit(user) {
+            this.empty = !this.$v.user.$anyDirty;
+            this.errors = this.$v.user.$invalid;
+            if(this.errors == false && this.empty == false) {
+                this.uiState = "form submitted";
+                this.$store.dispatch(REGISTER, user).
+                then(() => {
+                    this.$router.push({ name: "home" })
+            })
+            }
+        },
     }
 }
 </script>
@@ -112,5 +190,20 @@ export default {
 
     .b-h-w-g > fieldset {
         width: 24%;
+    }
+
+    .errors {
+        color: red;
+        font-family: 'Raleway', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+        input[type="submit"]:hover {
+        background: #3CA55C;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #B5AC49, #3CA55C);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #B5AC49, #3CA55C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    input[type="submit"]:active {
+        transform: translateY(4px);
     }
 </style>

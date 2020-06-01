@@ -4,6 +4,10 @@ import router from "./router";
 import store from "./store";
 import "../src/assets/global.css"
 import ApiService from "./common/api.service"
+import Vuelidate from 'vuelidate';
+
+Vue.use(Vuelidate);
+
 Vue.config.productionTip = false;
 
 import { CHECK_AUTH } from "./store/actions.type"

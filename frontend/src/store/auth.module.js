@@ -3,6 +3,7 @@ import JwtService from "../common/jwt.service"
 import {
     LOGIN,
     LOGOUT,
+    REGISTER,
     CHECK_AUTH,
 } from "./actions.type"
 
@@ -22,6 +23,10 @@ const state = {
 const getters = {
     currentUser(state) {
         return state.user
+    },
+
+    getErrors(state) {
+        return state.errors;
     },
 
     isAuthenticated(state) {
@@ -64,7 +69,20 @@ const actions = {
                 })
             }) 
         }
-    }
+    },
+
+    [REGISTER](context, credentials) {
+        return new Promise((resolve, reject) => {
+            ApiService.post("/register", credentials)
+            .then((response) => {
+                resolve(response)
+            })
+            .catch((error) => {
+                console.log(error)
+                reject(error)
+            })
+        }) 
+    },
 }
 
 const mutations = {
