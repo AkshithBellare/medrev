@@ -5,55 +5,55 @@
 
         <form @submit.prevent="onSubmit(user)">
             <fieldset>
-                <input type="text" placeholder="Name" v-model="$v.user.name.$model"/>
+                <input type="text" placeholder="Name" v-model.lazy="$v.user.name.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Username" v-model="$v.user.username.$model"/>
+                 <input type="text" placeholder="Username" v-model.lazy="$v.user.username.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="email" placeholder="Email" v-model="$v.user.email.$model"/>
+                 <input type="email" placeholder="Email" v-model.lazy="$v.user.email.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="password" placeholder="Password" v-model="$v.user.password.$model"/>
+                 <input type="password" placeholder="Password" v-model.lazy="$v.user.password.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="DOB (yyyy-mm-dd)" v-model="$v.user.dob.$model"/>
+                 <input type="text" placeholder="DOB (yyyy-mm-dd)" v-model.lazy="$v.user.dob.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="number" placeholder="Phone Number" v-model="$v.user.ph_number.$model"/>
+                 <input type="number" placeholder="Phone Number" v-model.lazy="$v.user.ph_number.$model"/>
             </fieldset>
 
             <div class="b-h-w-g">
             <fieldset>
-                 <input type="text" placeholder="Blood group" v-model="$v.user.blood_grp.$model"/>
+                 <input type="text" placeholder="Blood group" v-model.lazy="$v.user.blood_grp.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Height" v-model="$v.user.height.$model"/>
+                 <input type="text" placeholder="Height" v-model.lazy="$v.user.height.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Weight" v-model="$v.user.weight.$model"/>
+                 <input type="text" placeholder="Weight" v-model.lazy="$v.user.weight.$model"/>
             </fieldset>
             
             <fieldset>
-                 <input type="text" placeholder="Gender (M/F)" v-model="$v.user.gender.$model"/>
+                 <input type="text" placeholder="Gender (M/F)" v-model.lazy="$v.user.gender.$model"/>
             </fieldset>
             </div>
             <input type="submit" name="login" id="submit" value="SIGNUP">
         </form>
-        <div v-if="errors" class="errors">
-            <p v-if="$v.user.username.$anyError">Username has to be atleast 4 characters long</p>
-            <p v-else-if="$v.user.email.$anyError">Email has to be a valid email</p>
-            <p v-else-if="!$v.user.dob.validDate && $v.user.dob.$anyDirty">The date isn't valid</p>
-            <p v-else-if="$v.user.ph_number.$anyError">Phone number has to be 10 digits long!</p>
-            <p v-else-if="$v.user.gender.validGender">Please enter M for male and F for female</p>
-            <p v-else>This form has'nt been filled properly</p>
+        <div v-if="errors == true" class="errors">
+            <p v-if="!$v.user.username.minLength">Username has to be a minimum of 4 characters</p>
+            <p v-else-if="!$v.user.email.email">Email entered is not valid</p>
+            <p v-else-if="!$v.user.dob.validDate && $v.user.dob.$anyDirty">Please enter a valid date</p>
+            <p v-else-if="$v.user.ph_number.$anyError">Phone number has to be 10 digits long</p>
+            <p v-else-if="!$v.user.gender.validGender && $v.user.gender.$anyDirty">Please enter M for Male and F for Female</p>
+            <p v-else-if="$v.user.$invalid">This form hasn't been filled properly</p>
         </div>
 
     </div>
