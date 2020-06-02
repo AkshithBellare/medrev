@@ -34,11 +34,11 @@
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Height" v-model.lazy="$v.user.height.$model"/>
+                 <input type="text" placeholder="Height (cms)" v-model.lazy="$v.user.height.$model"/>
             </fieldset>
 
             <fieldset>
-                 <input type="text" placeholder="Weight" v-model.lazy="$v.user.weight.$model"/>
+                 <input type="text" placeholder="Weight (kg)" v-model.lazy="$v.user.weight.$model"/>
             </fieldset>
             
             <fieldset>

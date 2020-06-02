@@ -40,16 +40,66 @@
           <div class="label"><h2>Gender</h2></div>
           <div class="det"><h2>{{currentUser.gender}}</h2></div>
     </div>
-  </div>
+        <div class="detail">
+          <div class="label"><h2>BMI</h2></div>
+        <div class="det"><h2>{{currentUser.weight/(currentUser.height/100)*(currentUser.height/100)}}</h2></div>
+        </div>
+    <div>
+    </div>
 </div>
+
+<div class="bmi-calculator">
+      <h1>BMI calculator</h1>
+      <div class="weight-input">
+        <input type="text" name="weight-input" placeholder="Enter weight in Kgs" v-model.lazy="weightinput">
+      </div>
+
+      <div class="height-input">
+        <input type="text" name="height-input" placeholder="Enter height in metres" v-model.lazy="heightinput">
+      </div>
+
+      <div>
+        <button @click="result = calculateBMI(heightinput, weightinput)">BMI</button>
+      </div>
+      <div class="result">
+        <input type="text" name="result" v-model="result">
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import { numeric } from "vuelidate/lib/validators";
 export default {
+    data() {
+      return {
+        heightinput: '',
+        weightinput: '',
+        result: 0.0,
+      }
+    },
+
+    validations: {
+      heightinput: {
+        numeric,
+      },
+
+      weightinput: {
+        numeric,
+      }
+
+    },
+
     computed: {
-        ...mapGetters(["currentUser"])
-    }
+        ...mapGetters(["currentUser"]),
+    },
+
+    methods: {
+      calculateBMI: (heightinput, weightinput) => {
+        return (weightinput)/((heightinput)*(heightinput))
+      }
+    },
 }
 </script>
 
@@ -63,6 +113,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
 
 .user-banner {
   background-image: url('../assets/banner.jpeg');
@@ -105,6 +156,11 @@ background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+
   margin: 4em auto;
   border-radius: 4px;
   width: 50%;
+}
+
+.bmi-calculator {
+  width: 50%;
+  margin: 4em auto;
 }
 
 .detail {
