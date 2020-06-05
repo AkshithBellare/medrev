@@ -21,9 +21,9 @@ authCon.register = (req, res, next) => {
     var height = req.body.height;
     var weight = req.body.weight;
     var gender = req.body.gender;
-    // var user_role = req.body.user_role;
+    var user_role = req.body.user_role;
 
-    var query = `CALL register_user('${name}', '${email}' ,'${password}', '${username}', '${ph_number}', '${blood_grp}','${dob}', '${height}', '${weight}', '${gender}', 'user')`;
+    var query = `CALL register_user('${name}', '${email}' ,'${password}', '${username}', '${ph_number}', '${blood_grp}','${dob}', '${height}', '${weight}', '${gender}', '${user_role}')`;
 
     //  var query = `CALL register_user('richard', 'rich@rich.com' ,'1234', 'rich', '7778889991', 'O-','2000-09-09', '6', '9', 'm', 'user')`;
 

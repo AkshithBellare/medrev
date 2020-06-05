@@ -31,6 +31,10 @@
                     <router-link :to="{ name: 'overview' }">@{{ currentUser.username }}</router-link>
                     </li>
 
+                    <li v-if="currentUser.user_role == 'pharmacist'">
+                        <router-link :to="{ name: 'addDrug' }">Add Drug</router-link>
+                    </li>
+
                     <li>
                     <img src="../assets/logout.png" class="icon"/>
                     <a @click="logout">Logout</a>

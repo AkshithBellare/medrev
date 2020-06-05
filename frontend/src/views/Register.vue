@@ -45,6 +45,12 @@
                  <input type="text" placeholder="Gender (M/F)" v-model.lazy="$v.user.gender.$model"/>
             </fieldset>
             </div>
+
+            <fieldset>
+                <label for="user-role">Are you a pharmacist?</label>
+                <input class="checkbox" type="checkbox" name="user-role" v-model="checked" v-on:change="setUserRole(checked)">
+            </fieldset>
+
             <input type="submit" name="login" id="submit" value="SIGNUP">
         </form>
         <div v-if="errors == true" class="errors">
@@ -55,7 +61,6 @@
             <p v-else-if="!$v.user.gender.validGender && $v.user.gender.$anyDirty">Please enter M for Male and F for Female</p>
             <p v-else-if="$v.user.$invalid">This form hasn't been filled properly</p>
         </div>
-
     </div>
 </template>
 
@@ -65,6 +70,7 @@ import { REGISTER } from '../store/actions.type';
 export default {
     data() {
         return {
+            checked: false,
             uiState: "submit not clicked",
             errors: false,
             empty: false,
@@ -79,7 +85,7 @@ export default {
                 height: '',
                 weight: '',
                 gender: '',
-                user_role: '',
+                user_role: 'user',
             }
         }
     },
@@ -152,7 +158,15 @@ export default {
             })
             }
         },
-    }
+
+        setUserRole(checked) {
+            if(checked) {
+                this.user.user_role = 'pharmacist';
+            } else {
+                this.user.user_role = 'user';
+            }
+        }
+    },
 }
 </script>
 

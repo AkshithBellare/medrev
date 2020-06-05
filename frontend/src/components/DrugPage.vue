@@ -22,31 +22,38 @@
     <h3 class="comment">{{ comment.comment_desc }}</h3>
     </div>
   </div>
+  <div v-if="isAuthenticated">
+  <MedRevCommentEditor :uid="currentUser.id" :did="getDrug.id"/>
+  </div>
 </div>
 </template>
 
 <script>
 import { GET_DRUG, GET_DRUG_COMMENTS } from '../store/actions.type';
 import { mapGetters } from "vuex";
+import MedRevCommentEditor from "../components/commentEditor";
 export default {
+    components: {
+      MedRevCommentEditor,
+    },
     data() {
         return {
-            drug: {
+                drug:{
                 drugName: this.$route.params.name,
             }
         }
     },
 
     computed: {
-        ...mapGetters(["getDrug", "getCurDrugComments"])
+      ...mapGetters(["getDrug", "getCurDrugComments","currentUser", "isAuthenticated"])
     },
-    
+
     created() {
         this.$store.dispatch(GET_DRUG, this.drug.drugName).
         then(() => {
             this.$store.dispatch(GET_DRUG_COMMENTS, this.getDrug.id)
         })
-    }
+      },
 }
 </script>
 

@@ -29,4 +29,6 @@ router.post('/add-drug', check_user.checkRole, drugCon.add_drug);
 
 router.post('/drug', drugCon.add_comment);
 
+router.post('/drug/rating', drugCon.add_rating);
+
 module.exports = router;

@@ -3,6 +3,7 @@ import Vuex from "vuex";
 
 import auth from "./auth.module";
 import search from "./search.module";
+import drug from "./drug.module";
 
 Vue.use(Vuex);
 
@@ -10,5 +11,6 @@ export default new Vuex.Store({
   modules: {
     auth,
     search,
+    drug,
   }
 });

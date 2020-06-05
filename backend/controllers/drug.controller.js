@@ -6,14 +6,12 @@ var drugCon = {};
 
 drugCon.add_drug = (req, res, next) => {
 
-    var name = req.body.drug_name;
+    var name = req.body.name;
     var desc = req.body.description;
-    var related = req.body.related_drugs;
-    var side = req.body.side_fx;
     var dose = req.body.dosage;
-    var author = req.decoded.username;
+    var author = req.boyd.userid;
 
-    var query = `CALL add_drug('${name}', '${desc}', '${related}', '${side}', '${dose}', '${author}')`;
+    var query = `CALL add_drug('${name}', '${desc}', ${dose}', '${author}')`;
 
     console.log(query);
     db.query(query, true, (err, results) => {
@@ -45,6 +43,25 @@ drugCon.add_comment = (req, res, next) => {
     });
 
 };
+
+drugCon.add_rating = (req, res, next) => {
+    var query = `CALL add_rating('${req.body.rating}','${req.body.did}')`;
+
+    db.query(query, true, (err, results) => {
+        if(err){
+            res.status(404).json({
+                message: 'Error encountered ' + err
+            });
+        } else {
+            res.status(200).json({
+                message: 'Successfully added rating to drug'
+            });
+        }
+    });
+
+};
+
+
 
 module.exports = drugCon;
 

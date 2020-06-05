@@ -38,12 +38,11 @@ const actions = {
     [LOGIN](context, credentials) {
         return new Promise((resolve, reject) => {
             ApiService.post("/login", credentials)
-            .then((response) => {
+            .then((response) => {    
                 context.commit(SET_AUTH, response.data.token)
                 resolve(response)
             })
             .catch((error) => {
-                console.log(error)
                 context.commit(SET_ERROR,error);
                 reject(error)
             })
@@ -64,7 +63,6 @@ const actions = {
                     resolve(response)
                 })
                 .catch((error) => {
-                    console.log(error)
                     reject(error)
                 })
             }) 
