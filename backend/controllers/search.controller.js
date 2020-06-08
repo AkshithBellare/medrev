@@ -12,9 +12,13 @@ searchCon.search = (req, res, next) => {
         if(err){
             res.status(404).json({message: 'Error '+ err});
         } else {
+            console.log(results[0])
             res.status(200).send(
                 results[0].map(item => {
-                    return item.name
+                    return {
+                        id: item.id,
+                        name: item.name,
+                    }
                 })
             );
         }
@@ -36,10 +40,10 @@ searchCon.get_drug = (req, res, next) => {
                 name : results[0][0].name,
                 description : results[0][0].description,
                 dosage : results[0][0].dosage,
-                ratings : results[0][0].ratings,
+                rating : results[0][0].avg_rating,
             }
 
-            //console.log(results);
+            console.log(drug);
             }
             res.status(200).send(
                 drug
@@ -63,5 +67,28 @@ searchCon.get_drug_comments = (req, res, next) => {
         }
     })
 }
+
+searchCon.search_disease = (req, res, next) => {
+    console.log('Search req for ', req.query.name);
+    var query = `CALL search_disease('${req.query.name}')`;
+
+    db.query(query, true, (err, results, fields) => {
+        if(err){
+            res.status(404).json({message: 'Error '+ err});
+        } else {
+            console.log(results[0])
+            res.status(200).send(
+                results[0].map(item => {
+                    return {
+                        id: item.diseaseid,
+                        name: item.name,
+                    }
+                })
+            );
+        }
+    });
+}
+
+
 
 module.exports = searchCon;

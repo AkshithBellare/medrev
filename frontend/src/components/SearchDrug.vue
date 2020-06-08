@@ -10,7 +10,7 @@
             <ul>
                 <li v-if="getDrugResults.length == 0" class="noresult">No Drug by that name</li>
                 <li v-for="drug in getDrugResults" v-bind:key="drug.id" @click="showDrugPage(drug)">
-                    {{ drug }}
+                    {{ drug.name }}
                 </li>
             </ul>
         </div>
@@ -39,7 +39,7 @@ export default {
         },
 
         showDrugPage(drug) {
-            this.$router.push('/drug/' + drug);
+            this.$router.push('/drug/' + drug.name);
         }
     },
 }

@@ -19,7 +19,7 @@ config.db = {
     host: 'localhost',
     user: 'root',
     password: 'root',
-    database: 'drugDB'
+    database: 'drugDB2'
 }
 
 // config.keys = {

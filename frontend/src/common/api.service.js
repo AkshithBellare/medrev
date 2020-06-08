@@ -11,7 +11,7 @@ const ApiService = {
     },
 
     setHeader() {
-        Vue.axios.defaults.headers.common[ "Authorization" ] = `Bearer ${JwtService.getToken()}`
+        Vue.axios.defaults.headers.common["Authorization"] = `Bearer ${JwtService.getToken()}`
     },
 
     post(resource, params) {
@@ -20,11 +20,11 @@ const ApiService = {
 
     get(resource) {
         return Vue.axios.get(`${resource}`).catch(error => {
-          throw new Error(`ApiService ${error}`);
+            throw new Error(`ApiService ${error}`);
         });
-      },
+    },
 
-    
+
 }
 
 export default ApiService

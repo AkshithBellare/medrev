@@ -8,49 +8,49 @@ import {
 
 const state = {}
 const getters = {}
-const actions  = {
+const actions = {
 	[ADD_COMMENT](context, comment) {
 		return new Promise((resolve, reject) => {
-			ApiService.post('/drug',comment).
-			then((response) => {
-				resolve(response);
-			}).
-			catch((error)=> {
-				reject(error);
-			}) 
-		} );
+			ApiService.post('/drug/add-comment', comment).
+				then((response) => {
+					resolve(response);
+				}).
+				catch((error) => {
+					reject(error);
+				})
+		});
 	},
 
 	[ADD_RATING](context, rating) {
 		return new Promise((resolve, reject) => {
 			ApiService.setHeader();
-			ApiService.post('/drug/rating', rating).
-			then((response) => {
-				resolve(response);
-			}).
-			catch((error)=> {
-				reject(error);
-			}) 
+			ApiService.post('/drug/add-rating', rating).
+				then((response) => {
+					resolve(response);
+				}).
+				catch((error) => {
+					reject(error);
+				})
 		});
 	},
 
 	[ADD_DRUG](context, drug) {
-	return new Promise((resolve, reject) => {
-		ApiService.post('/add-drug', drug).
-		then((response) => {
-			resolve(response);
-		}).
-		catch((error) => {
-			reject(error);
+		return new Promise((resolve, reject) => {
+			ApiService.post('/add-drug', drug).
+				then((response) => {
+					resolve(response);
+				}).
+				catch((error) => {
+					reject(error);
+				})
 		})
-	})	
-	}
-} 
+	},
+}
 const mutations = {}
 
 export default {
 	state,
-	getters, 
-	actions, 
+	getters,
+	actions,
 	mutations,
 }

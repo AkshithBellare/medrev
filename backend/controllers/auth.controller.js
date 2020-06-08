@@ -89,7 +89,7 @@ authCon.authenticate = (req, res, next) => {
                     var token = jwt.sign(
                         {username: username, user_role: results[0].user_role},
                         config.keys.secret,
-                        {expiresIn: '30m'}
+                        {expiresIn: '180m'}
                     );
 
                     res.status(200).json({ success: true, token: 'JWT ' + token });

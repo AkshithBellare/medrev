@@ -38,15 +38,15 @@ const actions = {
     [LOGIN](context, credentials) {
         return new Promise((resolve, reject) => {
             ApiService.post("/login", credentials)
-            .then((response) => {    
-                context.commit(SET_AUTH, response.data.token)
-                resolve(response)
-            })
-            .catch((error) => {
-                context.commit(SET_ERROR,error);
-                reject(error)
-            })
-        }) 
+                .then((response) => {
+                    context.commit(SET_AUTH, response.data.token)
+                    resolve(response)
+                })
+                .catch((error) => {
+                    context.commit(SET_ERROR, error);
+                    reject(error)
+                })
+        })
     },
 
     [LOGOUT](context) {
@@ -54,32 +54,32 @@ const actions = {
     },
 
     [CHECK_AUTH](context) {
-        if(JwtService.getToken()) {
+        if (JwtService.getToken()) {
             return new Promise((resolve, reject) => {
                 ApiService.setHeader()
-		ApiService.get('/profile/me')
-                .then((response) => {
-                    context.commit(SET_USER,  response.data[0])
-                    resolve(response)
-                })
-                .catch((error) => {
-                    reject(error)
-                })
-            }) 
+                ApiService.get('/profile/me')
+                    .then((response) => {
+                        context.commit(SET_USER, response.data[0])
+                        resolve(response)
+                    })
+                    .catch((error) => {
+                        reject(error)
+                    })
+            })
         }
     },
 
     [REGISTER](context, credentials) {
         return new Promise((resolve, reject) => {
             ApiService.post("/register", credentials)
-            .then((response) => {
-                resolve(response)
-            })
-            .catch((error) => {
-                console.log(error)
-                reject(error)
-            })
-        }) 
+                .then((response) => {
+                    resolve(response)
+                })
+                .catch((error) => {
+                    console.log(error)
+                    reject(error)
+                })
+        })
     },
 }
 
