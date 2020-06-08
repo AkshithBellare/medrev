@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.20, for Linux (x86_64)
 --
--- Host: localhost    Database: drugDB
+-- Host: localhost    Database: drugDB2
 -- ------------------------------------------------------
 -- Server version	8.0.20-0ubuntu0.20.04.1
 
@@ -30,9 +30,10 @@ CREATE TABLE `comments` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `did` (`did`),
+  KEY `get_comments_index` (`uid`,`did`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`did`) REFERENCES `drugs` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +42,6 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,2,3,'This is the first ever comment description'),(2,3,5,'This is the second ever comment description'),(3,4,3,'Third comment'),(4,2,1,'this is 2\'s comment on 1'),(5,3,1,'this is 3\'s comment on 1'),(6,3,5,'Hello'),(8,2,1,'hello comment'),(9,2,1,'hello comment'),(14,2,1,'hello comment'),(15,5,3,'comment test comment test'),(16,5,3,'another comment'),(17,5,3,'comment'),(18,5,3,'comment'),(19,5,3,'comment'),(20,5,3,'comment'),(21,3,3,'a comment'),(22,3,3,'a akhs comment'),(23,3,3,'another comment just to check'),(24,3,3,'this drug is epic'),(25,3,3,'this drug is epic'),(26,3,3,'this drug is epic'),(27,3,3,'jkjshfklsdhfklasdf'),(28,3,3,'jkjshfklsdhfklasdf'),(29,3,3,'sdfsfsd'),(30,3,3,'sdfsfsfsf'),(31,3,3,'sdfsdf'),(32,7,4,''),(34,3,3,'undefined'),(35,3,3,'undefined'),(36,3,3,'another comment'),(37,3,3,'sdfssdfsf'),(38,3,3,'a comment'),(39,3,3,'lets add another comment'),(40,3,3,'a comment on secondentry\n'),(41,5,4,'a comment on secth drug'),(42,5,4,'a comment on secth drug'),(43,5,4,'a comment on secth drug'),(44,5,4,''),(45,5,4,'asdfsd'),(46,5,4,'a dfgfdg'),(47,3,4,'testing comment and rating'),(48,3,4,'testing comment only'),(49,3,4,'testing rating and comment'),(50,3,4,'a comment to add'),(51,3,4,'');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `disease_authors` (
 
 LOCK TABLES `disease_authors` WRITE;
 /*!40000 ALTER TABLE `disease_authors` DISABLE KEYS */;
-INSERT INTO `disease_authors` VALUES (2,3);
+INSERT INTO `disease_authors` VALUES (54,16),(56,16),(57,16);
 /*!40000 ALTER TABLE `disease_authors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +85,7 @@ CREATE TABLE `diseases` (
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`diseaseid`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `diseases` (
 
 LOCK TABLES `diseases` WRITE;
 /*!40000 ALTER TABLE `diseases` DISABLE KEYS */;
-INSERT INTO `diseases` VALUES ('disease1',1,'symptom1'),('crocin',2,'fever'),('cro',3,'test'),('123',4,'test');
+INSERT INTO `diseases` VALUES ('Pneumonia',54,'Pneumonia is an inflammation of the lungs caused by a bacterial, viral, or fungal infection.'),('Fever',56,'Fever, also referred to as pyrexia, is defined as having a temperature above the normal range due to an increase in the body\'s temperature set point.'),('Pain',57,'Pain is a distressing feeling often caused by intense or damaging stimuli.');
 /*!40000 ALTER TABLE `diseases` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +121,7 @@ CREATE TABLE `drug_authors` (
 
 LOCK TABLES `drug_authors` WRITE;
 /*!40000 ALTER TABLE `drug_authors` DISABLE KEYS */;
-INSERT INTO `drug_authors` VALUES (6,4),(7,4),(8,4),(9,4),(10,4),(28,15),(29,15);
+INSERT INTO `drug_authors` VALUES (127,16),(128,16),(129,16),(130,16);
 /*!40000 ALTER TABLE `drug_authors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,8 +141,9 @@ CREATE TABLE `drugs` (
   `updatedAt` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `avg_rating` float DEFAULT '0',
   `num_of_ratings` int DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `search_drug_index` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,7 +152,7 @@ CREATE TABLE `drugs` (
 
 LOCK TABLES `drugs` WRITE;
 /*!40000 ALTER TABLE `drugs` DISABLE KEYS */;
-INSERT INTO `drugs` VALUES (1,'1','ok','3','2020-03-07 21:14:37','2020-06-04 22:52:01',NULL,4),(3,'secondentry','2ok','4','2020-03-07 21:14:37','2020-06-04 23:11:35',NULL,4),(4,'d1','desc','ertyui','2020-03-11 18:37:13','2020-06-04 22:55:31',NULL,2),(5,'secth','is this','4','2020-03-11 21:17:13','2020-06-04 23:01:24',3.35714,7),(6,'cal','ointment','always','2020-04-10 17:26:40','2020-06-04 22:52:20',2.5,1),(7,'lac','ointment','never','2020-04-10 17:28:47','2020-04-10 17:47:32',3.5,2),(8,'cal','ointment','always','2020-04-10 17:57:53','2020-04-10 17:57:53',0,0),(9,'cal','ointment','always','2020-04-10 17:57:55','2020-04-10 17:57:55',0,0),(10,'cal','ointment','always','2020-04-10 17:57:56','2020-04-10 17:57:56',0,0),(27,'Paracetamol','Paracetamol (acetaminophen) is a pain reliever and a fever reducer. The exact mechanism of action of is not known.\n\nParacetamol is used to treat many conditions such as headache, muscle aches, arthritis, backache, toothaches, colds, and fevers.','One table for mild headache and fever','2020-05-28 18:24:17','2020-06-04 23:14:37',3.5,1),(28,'Ranolazine','Used to treat chronic angina (chest pain)','500mg, 1000mg','2020-06-05 13:09:26','2020-06-05 13:09:54',2.5,1),(29,'Ranolazine','Used to treat chronic angina (chest pain)','500mg, 1000mg','2020-06-05 13:34:30','2020-06-05 13:34:30',0,0);
+INSERT INTO `drugs` VALUES (127,'levofloxacin','Levofloxacin is a fluoroquinolone (flor-o-KWIN-o-lone) antibiotic that fights bacteria in the body. Levofloxacin is used to treat different types of bacterial infections.','Applies to the following strengths: 25 mg/mL; 750 mg/150 mL; 250 mg/50 mL; 500 mg/100 mL; 250 mg; 500 mg; 750 mg','2020-06-07 18:34:14','2020-06-07 18:34:14',0,0),(128,'Paracetamol','Paracetamol is used to treat many conditions such as headache, muscle aches, arthritis, backache, toothaches, colds, and fevers. ','Applies to the following strengths: 160 mg; 80 mg/0.8 mL; 160 mg/5 mL; 500 mg; 650 mg; 80 mg;','2020-06-07 18:45:46','2020-06-07 23:50:07',3,6),(129,'Aspirin','Aspirin is used to reduce fever and relieve mild to moderate pain from conditions such as muscle aches, toothaches, common cold, and headaches. It may also be used to reduce pain and swelling in conditions such as arthritis. ','Applies to the following strengths: 800 mg; 500 mg; 325 mg; 81 mg; buffered 500 mg; buffered 325 mg; buffered 81 mg; 9','2020-06-07 18:47:34','2020-06-07 18:47:34',0,0),(130,'Ibuprofen','Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID). It works by reducing hormones that cause inflammation and pain in the body.','Applies to the following strengths: 100 mg/5 mL; 800 mg; 300 mg; 600 mg; 400 mg; 200 mg; 50 mg/1.25 mL; 50 mg; 100 mg; 10 mg/mL; 100 mg/mL; 800 mg/200 mL','2020-06-07 19:13:12','2020-06-07 19:26:28',3.5,1);
 /*!40000 ALTER TABLE `drugs` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -219,7 +220,7 @@ CREATE TABLE `medication` (
 
 LOCK TABLES `medication` WRITE;
 /*!40000 ALTER TABLE `medication` DISABLE KEYS */;
-INSERT INTO `medication` VALUES (3,3),(3,10),(3,6),(2,7),(2,4);
+INSERT INTO `medication` VALUES (18,128),(18,130);
 /*!40000 ALTER TABLE `medication` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +273,7 @@ CREATE TABLE `similar_drugs` (
 
 LOCK TABLES `similar_drugs` WRITE;
 /*!40000 ALTER TABLE `similar_drugs` DISABLE KEYS */;
-INSERT INTO `similar_drugs` VALUES (8,1),(8,5),(9,1),(9,5),(10,1),(10,5);
+INSERT INTO `similar_drugs` VALUES (129,128),(130,128),(130,129);
 /*!40000 ALTER TABLE `similar_drugs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -288,9 +289,9 @@ CREATE TABLE `treatment` (
   `drugid` int DEFAULT NULL,
   KEY `disid` (`disid`),
   KEY `drugid` (`drugid`),
-  CONSTRAINT `treatment_ibfk_1` FOREIGN KEY (`disid`) REFERENCES `diseases` (`diseaseid`),
-  CONSTRAINT `treatment_ibfk_2` FOREIGN KEY (`drugid`) REFERENCES `drugs` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `treatment_ibfk_1` FOREIGN KEY (`disid`) REFERENCES `diseases` (`diseaseid`) ON DELETE CASCADE,
+  CONSTRAINT `treatment_ibfk_2` FOREIGN KEY (`drugid`) REFERENCES `drugs` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,9 +300,31 @@ CREATE TABLE `treatment` (
 
 LOCK TABLES `treatment` WRITE;
 /*!40000 ALTER TABLE `treatment` DISABLE KEYS */;
-INSERT INTO `treatment` VALUES (1,6),(2,6),(1,7),(1,8),(2,8),(1,9),(2,9),(1,10),(2,10);
+INSERT INTO `treatment` VALUES (54,127),(56,128),(57,129),(56,129),(57,130),(56,130);
 /*!40000 ALTER TABLE `treatment` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `user_details`
+--
+
+DROP TABLE IF EXISTS `user_details`;
+/*!50001 DROP VIEW IF EXISTS `user_details`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `user_details` AS SELECT 
+ 1 AS `id`,
+ 1 AS `name`,
+ 1 AS `email`,
+ 1 AS `username`,
+ 1 AS `ph_number`,
+ 1 AS `dob`,
+ 1 AS `blood_grp`,
+ 1 AS `height`,
+ 1 AS `weight`,
+ 1 AS `gender`,
+ 1 AS `user_role`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `users`
@@ -327,8 +350,9 @@ CREATE TABLE `users` (
   `user_role` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `username` (`username`),
+  KEY `get_user_index` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,16 +361,16 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (2,'Harsh','harsh1@gmail.com','123456789','harsh2338','1234567890','B+','2000-07-03',184.5,63.6,'2020-03-06 20:43:57','2020-03-06 21:54:13',NULL,'admin'),(3,'Akshith Bellare','another','okpass','akhs','9876543210','O+','2000-08-15',178.5,70.2,'2020-03-07 19:15:35','2020-03-07 19:15:35','M','pharmacist'),(4,'reallife','harsh.aayush.r1@gmail.com','root','root','undefined','B+','2020-03-27',185.2,63.9,'2020-03-07 19:29:50','2020-03-07 19:29:50','F','user'),(5,'johnny Depp','johnny@depp.com','111222333','deppjohnny','4445554445','B+','2000-08-09',6,7,'2020-06-01 20:25:17','2020-06-01 20:25:17','M','user'),(6,'Von Neumann','vonneumann@arch.com','vonneumann','neumann','6667778883','A+','2000-08-09',4.3,77,'2020-06-01 20:37:00','2020-06-01 20:37:00','M','user'),(7,'akashdeep S','akash@deep.com','akashdeep','deepakash','6574678533','O-','2000-08-11',5.9,162,'2020-06-01 20:42:44','2020-06-01 20:42:44','M','user'),(8,'aksf','skljdf@gmail.com','sfsdfsdfsdf','sddd','8778778776','B+','2000-08-09',34,34,'2020-06-02 00:00:58','2020-06-02 00:00:58','M','user'),(9,'sdfsf','afdf@hdkf.com','sdksjdlkf','afasdfasdf','7778887778','B+','2000-09-03',45,78,'2020-06-02 00:05:25','2020-06-02 00:05:25','M','user'),(10,'Rakesh Kote','rakesh@kote.com','rakeshkote','koterakesh','4445554445','B+','2000-09-08',22,33,'2020-06-02 00:08:25','2020-06-02 00:08:25','M','user'),(11,'Michael Scott','michaelscott@gmail.com','michaelscott','scottmichael','6667776667','A+','2000-08-15',6.1,75,'2020-06-02 10:56:30','2020-06-02 10:56:30','M','user'),(12,'Henry Cavill','henrycavill@gmail.com','henrycavill','cavillhenry','5556665556','B+','2000-08-07',7.1,123,'2020-06-02 11:05:26','2020-06-02 11:05:26','M','user'),(13,'Anil Kumar','anilkumar@gmail.com','anilkumar','kumaranil','5656787890','B+','2000-06-07',44,43,'2020-06-02 11:12:37','2020-06-02 11:12:37','M','user'),(14,'Dr.Niranjan','niranjan@kims.com','niranjandr','niranjan','6667776669','B+','2000-09-08',179,70,'2020-06-02 14:55:35','2020-06-02 14:55:35','M','user'),(15,'Dr.Ketan','ketan@aiims.com','drketan','drketan','8767876788','B+','1980-07-08',182,77,'2020-06-02 14:59:27','2020-06-02 14:59:27','M','pharmacist');
+INSERT INTO `users` VALUES (16,'Akshith Bellare','akshith@bellare.com','akshith','akshithbellare','8218218211','B+','2000-08-15',160,64,'2020-06-05 19:02:56','2020-06-05 19:02:56','M','pharmacist'),(17,'Harshvardhan R','harshvardhan@iris.com','harshvardhan','harshvardhanr','8219897656','B+','2000-08-15',167,77,'2020-06-05 19:03:49','2020-06-05 19:03:49','M','pharmacist'),(18,'Laharish S','laharish@anime.com','laharish','laharishs','6766766768','B+','2000-08-15',167,64,'2020-06-05 19:04:37','2020-06-05 19:04:37','M','user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'drugDB'
+-- Dumping events for database 'drugDB2'
 --
 
 --
--- Dumping routines for database 'drugDB'
+-- Dumping routines for database 'drugDB2'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `add_comment` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -423,15 +447,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `add_drug`(
 name varchar(255),
 description varchar(255),
 dosage varchar(255),
+disease_id_list longtext,
+drug_id_list longtext,
 user_added int
 )
-begin
+begin	
 declare drug_id int; 
 DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+BEGIN
+        ROLLBACK;
+        SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+END;
 start transaction;
 insert into drugs(name,description,dosage) values(name,description,dosage);
 set drug_id=last_insert_id();
 insert into drug_authors(did,uid) values(drug_id,user_added);
+call insert_drug_cures(drug_id,disease_id_list);
+call insert_similar_drugs(drug_id,drug_id_list);
 commit;
 end ;;
 DELIMITER ;
@@ -469,41 +501,24 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_medication`(
 uid int ,
-drug_id_list longtext
+did int
 )
 begin
-declare did int ;
-declare dlen int ;
-declare didstring text;
 DECLARE EXIT HANDLER FOR SQLEXCEPTION 
 BEGIN
         ROLLBACK;
         SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
 END;
 start transaction;
-
-
-iterator: 
-LOOP 
-IF length(trim(drug_id_list)) = 0 or drug_id_list is null 
-then 
-LEAVE iterator; 
-END IF; 
-set didstring = substring_index(drug_id_list,',',1); 
-set dlen=length(didstring); 
-set did=convert(trim(didstring),unsigned integer); 
 insert into medication(uid,drugid) values(uid,did); 
-set drug_id_list=insert(drug_id_list,1,dlen+1,''); 
-END LOOP; 
-
 commit;
 end ;;
 DELIMITER ;
@@ -712,6 +727,27 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `get_medication` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_medication`(userid int)
+BEGIN
+start transaction;
+select d.name from drugs as d ,medication as m where d.id=m.drugid and m.uid =userid;
+commit;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `get_similar_drugs` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -751,10 +787,19 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user`(uname varchar(32))
-begin
-select * from users
-where username like uname;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user`(
+user_name varchar(20)
+)
+begin	
+DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+BEGIN
+        ROLLBACK;
+        SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+END;
+start transaction;
+select * from user_details where username like user_name;
+
+commit;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -907,43 +952,50 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `search`(drugname varchar(20))
 begin
-select * from drugs where name regexp concat(drugname, '+');
+select name, id from drugs where name regexp concat(drugname, '+');
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `test` */;
+/*!50003 DROP PROCEDURE IF EXISTS `search_disease` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `test`(
-drug_id int
-)
-begin
-DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `search_disease`(diseasename varchar(255))
 BEGIN
-        ROLLBACK;
-        SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
-END;
-start transaction;
-select * from drugs where id=drug_id;
-call get_diseases_cured(drug_id); 
-
-commit;
-end ;;
+	select name, diseaseid from diseases where name regexp concat(diseasename, '+');
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Final view structure for view `user_details`
+--
+
+/*!50001 DROP VIEW IF EXISTS `user_details`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `user_details` AS select `users`.`id` AS `id`,`users`.`name` AS `name`,`users`.`email` AS `email`,`users`.`username` AS `username`,`users`.`ph_number` AS `ph_number`,`users`.`dob` AS `dob`,`users`.`blood_grp` AS `blood_grp`,`users`.`height` AS `height`,`users`.`weight` AS `weight`,`users`.`gender` AS `gender`,`users`.`user_role` AS `user_role` from `users` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -954,4 +1006,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-05 15:51:46
+-- Dump completed on 2020-06-08  8:55:25
