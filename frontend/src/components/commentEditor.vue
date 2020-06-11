@@ -52,6 +52,10 @@ export default {
 
 .comment-editor {
   width: 50%;
+  background: lightgray;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 1em;
 }
 
 .card-footer {
@@ -73,5 +77,24 @@ textarea {
   padding-top: 1px;
   width: 100px;
   height: 50px;
+}
+
+.card-footer > button:hover {
+  background: #3ca55c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #b5ac49,
+    #3ca55c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #b5ac49,
+    #3ca55c
+  );
+}
+
+.card-footer > button:active {
+    transform: translateY(4px);
+
 }
 </style>

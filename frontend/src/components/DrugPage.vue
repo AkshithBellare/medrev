@@ -1,10 +1,17 @@
 <template>
+<div class="drug-page">
   <div class="drug-details shadow">
     <div class="drug-title">
       <h1>{{ getDrug.name }}</h1>
-      <span>{{getDrug.rating}}</span>
-      <h2>Added by {{drug.drugAuthor}}</h2>
+      <div class="drug-rating">
+        <span>
+          <h2>{{getDrug.rating.toFixed(2)}}</h2>
+        </span>
+        <img src="@/assets/star.png" height="25px" />
+      </div>
     </div>
+
+    <h2>Added by {{drug.drugAuthor}}</h2>
 
     <hr />
     <hr />
@@ -26,21 +33,27 @@
       </div>
     </div>
 
-    <div class="similar-drugs">
-      <h2 v-if="drug.similarDrugs.length > 0">Similar Drugs</h2>
-      <div v-for="(drug,index) in drug.similarDrugs" v-bind:key="index">{{drug}}</div>
+    <div class="drugs-diseases">
+      <div class="similar-drugs">
+        <h2 v-if="drug.similarDrugs.length == 0">No Similar Drugs to Show</h2>
+        <h2 v-if="drug.similarDrugs.length > 0">Similar Drugs</h2>
+        <div id="tag" v-for="(drug,index) in drug.similarDrugs" v-bind:key="index">{{drug}}</div>
+      </div>
+
+      <div class="diseases-cured">
+        <h2 v-if="drug.diseasesCured.length == 0">No Diseases Cured to Show</h2>
+        <h2 v-if="drug.diseasesCured.length > 0">Diseases Cured</h2>
+        <div id="tag" v-for="(disease, index) in drug.diseasesCured" v-bind:key="index">{{disease}}</div>
+      </div>
     </div>
 
-    <div class="diseases-cured">
-      <h2 v-if="drug.diseasesCured.length > 0">Diseases Cured</h2>
-      <div v-for="(disease, index) in drug.diseasesCured" v-bind:key="index">{{disease}}</div>
-    </div>
-    <div v-if="isAuthenticated">
-      <MedRevRating />
+    <div id="rating-comment" v-if="isAuthenticated">
       <MedRevCommentEditor />
+      <MedRevRating />
       <button @click="addMedication(getDrug.id, currentUser.id)">Add to medication</button>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -168,22 +181,73 @@ export default {
   padding: 20px;
 }
 
-.drug-title {
-  padding-bottom: 10px;
+.drug-page {
+  height: 100vh;
 }
 
+.drug-title {
+  padding-bottom: 10px;
+  font-family: "Raleway", sans-serif;
+  display: flex;
+  flex-direction: row;
+}
+
+#rating-comment > button {
+  font-size: 1.4em;
+}
+
+#rating-comment > button:active {
+  transform: translateY(4px);
+}
+
+#rating-comment > button:hover {
+  background: #3ca55c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #b5ac49,
+    #3ca55c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #b5ac49, #3ca55c);
+}
+.drug-rating {
+  display: flex;
+  flex-direction: row;
+}
+
+.drug-rating > h2 {
+  font-size: 1.4em;
+}
+
+.diseases-cured > h2 {
+  font-family: 'Raleway', sans-serif;
+  padding: 8px;
+}
+
+.similar-drugs > h2 {
+  font-family: 'Raleway', sans-serif;
+  padding: 8px;
+}
+.drug-rating > span > h2 {
+  font-family: 'Roboto', sans-serif;
+}
+.drug-title > h1 {
+  margin-right: 20px;
+}
 .drug-desc {
   padding-top: 10px;
+  font-family: 'Raleway', sans-serif;
   padding-bottom: 20px;
 }
 
 .drug-dosage {
   display: flex;
+  font-family: 'Raleway', sans-serif;
 }
 
 .label {
   padding-right: 20px;
   color: red;
+  font-size: 1.4em;
 }
 
 .drug-comments {
@@ -202,6 +266,34 @@ export default {
   border-radius: 4px;
   padding: 10px;
   margin-bottom: 15px;
+}
+#tag {
+  background: grey;
+  padding: 4px;
+  margin: 4px;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  display: inline-block;
+}
+.drugs-diseases {
+  margin: 1.3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.similar-drugs {
+  background: burlywood;
+  flex-basis: 50%;
+  text-align: center;
+  border-radius: 4px;
+}
+.diseases-cured {
+  background: blanchedalmond;
+  border-radius: 4px;
+  flex-basis: 50%;
+  text-align: center;
 }
 
 .username {

@@ -26,6 +26,7 @@ const routes = [
   },
   {
     path: "/drug/:name",
+    name: "drug",
     component: () => import("@/components/DrugPage")
   },
   {

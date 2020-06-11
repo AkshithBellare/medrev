@@ -49,7 +49,7 @@
       </div>
 
       <fieldset>
-        <label for="user-role">Are you a pharmacist?</label>
+        <label id="label" for="user-role">Are you a pharmacist?</label>
         <input
           class="checkbox"
           type="checkbox"
@@ -241,6 +241,11 @@ input[type="submit"]:hover {
 
 input[type="submit"]:active {
   transform: translateY(4px);
+}
+
+#label {
+  font-family: 'Raleway', sans-serif;
+  margin: 8px;
 }
 
 @media screen and (max-width: 800px) {
