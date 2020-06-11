@@ -1,6 +1,5 @@
 <template>
   <div class="add-drug">
-    <h2>To add a similar Drug or a disease cured use the search bars to search and click on the disease or drug you want to add</h2>
     <form>
       <fieldset>
         <input type="text" placeholder="Enter Drug Name" v-model="$v.drug.name.$model" />
@@ -33,11 +32,11 @@
         </div>
       </div>
 
-      <button @click="addDrug">Submit</button>
+      <button @click="addDrug">Post Drug</button>
     </form>
     <div class="search-bars">
       <fieldset>
-        <input type="text" placeholder="Search Drug" v-model="searchStr" @change="search" />
+        <input type="text" placeholder="Add to similar drugs" v-model="searchStr" @change="search" />
         <div class="results">
           <ul>
             <li v-if="getDrugResults.length == 0" class="noresult">No Drug by that name</li>
@@ -53,7 +52,7 @@
       <fieldset>
         <input
           type="text"
-          placeholder="Search Disease"
+          placeholder="Add to diseases cured"
           v-model="searchStrDisease"
           @change="searchDisease"
         />
@@ -203,11 +202,16 @@ export default {
 .add-drug {
   width: 50%;
   margin: 0 auto;
-  background: lightblue;
   padding: 4em;
   border-radius: 8px;
+  height: 100vh;
 }
 
+.add-drug > h2{
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
 .search-bars {
   display: flex;
   flex-direction: row;
@@ -269,6 +273,14 @@ form > button {
   border-radius: 20px;
 }
 
+#drugs-div > h2 {
+  font-family: 'Raleway', sans-serif;
+}
+
+#diseases-div > h2 {
+  font-family: 'Raleway', sans-serif;
+}
+
 li {
   height: 40px;
   font-size: 1em;
@@ -283,5 +295,23 @@ li {
 }
 li:hover {
   background: whitesmoke;
+}
+
+button:hover {
+  background: #3ca55c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #b5ac49,
+    #3ca55c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #b5ac49,
+    #3ca55c
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+button:active {
+  transform: translateY(4px);
 }
 </style>

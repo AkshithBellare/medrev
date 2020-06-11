@@ -21,7 +21,18 @@
 
     <button @click="result = calculateBMI(heightinput, weightinput)">BMI</button>
 
-    <div class="bmi-output">{{result}}</div>
+    <div class="bmi-output">
+      <h2 v-if="result == 0">Let's find your BMI!</h2>
+      <h2 v-else-if="result < 16">Severe Thinness</h2>
+      <h2 v-else-if="result >= 16 && result < 17">Moderate Thinness</h2>
+      <h2 v-else-if="result >=17 && result < 18.5">Mild Thinness</h2>
+      <h2 v-else-if="result >= 18.5 && result < 25">Normal</h2>
+      <h2 v-else-if="result >= 25 && result < 30">Overweight</h2>
+      <h2 v-else-if="result >= 30 && result < 35">Obese Class I</h2>
+      <h2 v-else-if="result >= 35 && result < 40">Obese Class II</h2>
+      <h2 v-else-if="result > 40">Obese Class III</h2>
+      <h2 v-else>"Hmm.. Can you check your input again?"</h2>  
+    </div>
   </div>
 </template>
 
@@ -67,4 +78,14 @@ export default {
 .bmi-input {
   padding: 10px;
 }
+
+.bmi-output {
+  font-size: 1.6em;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  background: cornflowerblue;
+  color: white;
+}
+
 </style>

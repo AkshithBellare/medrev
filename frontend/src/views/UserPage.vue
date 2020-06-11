@@ -7,6 +7,7 @@
 
       <div class="username">
         <h1>{{ currentUser.username }}</h1>
+        <img v-if="currentUser.user_role == 'pharmacist'" class="pharmacist-logo" src="@/assets/pharmacist.png" alt />
       </div>
     </div>
 
@@ -72,11 +73,15 @@
           <h2>{{currentUser.weight/(currentUser.height/100)*(currentUser.height/100)}}</h2>
         </div>
       </div>
-      <div></div>
-    </div>
-    <div v-on:click="getMedication(currentUser.id)" class="medications">
-      <h2>Show Medications</h2>
-      <div v-for="(medication,index) in medications" v-bind:key="index">{{medication}}</div>
+
+      <div class="show-medications"><div class="show" title="Click to see your medications" v-on:click="getMedication(currentUser.id)">Medications</div>
+        <div class="medications">
+          <h2 class="no-medications" v-if="medications.length == 0">No medications to Show :(.<router-link :to="{name: 'home'}">Search a drug to add to Medications?</router-link></h2>
+          <div v-for="(medication,index) in medications" v-bind:key="index" id="medication">
+            <router-link :to="{name: 'drug', params: {name: medication}}">{{medication}}</router-link>
+          </div>
+        </div>
+      </div>
     </div>
     <MedRevBMIcalculator />
   </div>
@@ -102,13 +107,13 @@ export default {
   },
 
   methods: {
-    getMedication: function() {
+    getMedication: function(id) {
       // console.log('userid:',id);
       // this.$store.dispatch(GET_MEDICATION, {uid: id})
 
       Axios.get("http://localhost:3000/get-medication", {
         params: {
-          uid: 18
+          uid: id
         }
       }).then(response => {
         console.log(response.data);
@@ -141,23 +146,25 @@ export default {
   font-size: 90px;
 }
 .username {
+  display: flex;
+  flex-direction: row;
   color: white;
   font-size: 20px;
   border-radius: 6px;
   padding: 5px;
   margin-bottom: 1em;
-  background: #0f2027; /* fallback for old browsers */
+  background: #0f0c29; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
-    #2c5364,
-    #203a43,
-    #0f2027
+    #24243e,
+    #302b63,
+    #0f0c29
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to right,
-    #2c5364,
-    #203a43,
-    #0f2027
+    #24243e,
+    #302b63,
+    #0f0c29
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .user-image > img {
@@ -168,6 +175,23 @@ export default {
 .user-image {
   margin-top: 1em;
 }
+
+.show-medications {
+  padding: 8px;
+}
+
+.no-medications {
+  padding: 8px;
+  font-size: 1.2em;
+  font-family: 'Raleway', sans-serif;
+}
+.show {
+  background-color: cornflowerblue;
+  font-size: 1.5em;
+  color: white;
+  padding: 8px;
+}
+
 .userdetails {
   margin: 4em auto;
   border-radius: 4px;
@@ -191,6 +215,12 @@ export default {
   font-weight: 400;
   font-size: 1.4em;
 }
+
+.pharmacist-logo {
+  height: 40px;
+  width: 40px;
+  margin-left: 12px;
+}
 .label {
   padding: 5px;
   background: lightgreen;
@@ -206,6 +236,12 @@ export default {
   padding-right: 1em;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+#medication {
+  padding: 4px;
+  color: green;
+  font-size: 1.4em;
 }
 .shadow {
   -moz-box-shadow: 3px 3px 5px 6px #ccc;

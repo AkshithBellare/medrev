@@ -15,5 +15,5 @@ npm run serve
 ```
 
 ## Team Members
-- @AkshithBellare 181IT104
-- @laharish01 181IT125
+- [@AkshithBellare 181IT104](https://github.com/AkshithBellare)
+- [@laharish01 181IT125](https://github.com/laharish01)
