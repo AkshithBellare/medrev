@@ -4,6 +4,7 @@
       :increment="0.5"
       v-model="rating"
       @rating-selected="setRating"
+      v-bind:star-size="40"
       v-bind:show-rating="false"
     ></star-rating>
     <button v-bind:disabled="ratingSubmitted" @click="submitRating">{{ratingStatus}}</button>
@@ -53,14 +54,36 @@ export default {
 #rating-editor {
   display: flex;
   flex-direction: row;
+  margin: 2em;
 }
 
 #rating-editor > button {
-  width: 150px;
+  width: 100px;
+  padding: 0px;
+}
+
+#rating-editor > button:hover {
+  background: #3ca55c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #b5ac49,
+    #3ca55c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #b5ac49,
+    #3ca55c
+  );
+}
+
+#rating-editor > button:active {
+    transform: translateY(4px);
+
 }
 
 #rating-editor > button:disabled {
   background: lightgreen;
   color: black;
 }
+
 </style>

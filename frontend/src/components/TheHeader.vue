@@ -32,10 +32,12 @@
         </li>
 
         <li v-if="currentUser.user_role == 'pharmacist'">
+          <img src="../assets/pill.png" class="icon" />
           <router-link :to="{ name: 'addDrug' }">Add Drug</router-link>
         </li>
 
         <li v-if="currentUser.user_role == 'pharmacist'">
+          <img src="../assets/disease.png" class="icon" />
           <router-link :to="{ name: 'addDisease' }">Add Disease</router-link>
         </li>
 
@@ -92,6 +94,8 @@ header {
   margin: 0;
   color: #3f6826;
   font-weight: 500;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
 }
 
 nav a {
