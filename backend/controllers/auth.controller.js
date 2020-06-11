@@ -21,9 +21,9 @@ authCon.register = (req, res, next) => {
     var height = req.body.height;
     var weight = req.body.weight;
     var gender = req.body.gender;
-    // var user_role = req.body.user_role;
+    var user_role = req.body.user_role;
 
-    var query = `CALL register_user('${name}', '${email}' ,'${password}', '${username}', '${ph_number}', '${blood_grp}','${dob}', '${height}', '${weight}', '${gender}', 'user')`;
+    var query = `CALL register_user('${name}', '${email}' ,'${password}', '${username}', '${ph_number}', '${blood_grp}','${dob}', '${height}', '${weight}', '${gender}', '${user_role}')`;
 
     //  var query = `CALL register_user('richard', 'rich@rich.com' ,'1234', 'rich', '7778889991', 'O-','2000-09-09', '6', '9', 'm', 'user')`;
 
@@ -81,7 +81,7 @@ authCon.authenticate = (req, res, next) => {
             res.status(404).json({message: 'failure'+err});
         } else {
             if (results.length == 0){
-                res.json({message: 'User not present. Check entered username'});
+                res.status(404).json({message: 'Check entered username'});
             } else {
                 //console.log(results);
                 var auth = authCon.comparePasswords(password, results[0].password);
@@ -89,7 +89,7 @@ authCon.authenticate = (req, res, next) => {
                     var token = jwt.sign(
                         {username: username, user_role: results[0].user_role},
                         config.keys.secret,
-                        {expiresIn: '30m'}
+                        {expiresIn: '180m'}
                     );
 
                     res.status(200).json({ success: true, token: 'JWT ' + token });

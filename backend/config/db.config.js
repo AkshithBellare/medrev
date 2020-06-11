@@ -18,8 +18,8 @@ var config = module.exports;
 config.db = {
     host: 'localhost',
     user: 'root',
-    password: 'rootroot',
-    database: 'drugDB'
+    password: 'root',
+    database: 'drugDB2'
 }
 
 // config.keys = {
