@@ -50,7 +50,7 @@ export default {
 h1 {
   text-align: center;
   margin-top: 1em;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 .container {
   display: flex;
@@ -65,11 +65,12 @@ h1 {
 .input-container > input {
   margin-bottom: 0;
   border: none;
-  border-radius: 16px 16px 16px 16px;
+  border-radius: 4px 4px 4px 4px;
   border-bottom: 1px solid lightgray;
 }
 .results {
   background: white;
+  border-radius: 4px;
 }
 
 li {
