@@ -19,7 +19,7 @@
       />
     </div>
 
-    <button @click="result = calculateBMI(heightinput, weightinput)">BMI</button>
+    <button @click="result = calculateBMI(heightinput, weightinput)">Calculate BMI</button>
 
     <div class="bmi-output">
       <h2 v-if="result == 0">Let's find your BMI!</h2>
@@ -69,6 +69,8 @@ export default {
 
 .bmi-calculator > button {
   width: 200px;
+  font-size: 1.4em;
+  font-family: 'Raleway', sans-serif;
 }
 .bmi-input > input {
   padding: 10px;
@@ -85,7 +87,26 @@ export default {
   padding: 20px;
   border-radius: 10px;
   background: cornflowerblue;
+  font-family: 'Raleway', sans-serif;
   color: white;
 }
 
+
+button:hover {
+  background: #3ca55c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #b5ac49,
+    #3ca55c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #b5ac49,
+    #3ca55c
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+button:active {
+  transform: translateY(4px);
+}
 </style>

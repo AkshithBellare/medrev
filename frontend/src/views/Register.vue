@@ -1,4 +1,5 @@
 <template>
+<div class="signup-page">
   <div class="auth-form">
     <h1>Sign Up</h1>
     <router-link :to="{ name: 'login'}">
@@ -72,6 +73,7 @@
       <p v-else-if="$v.user.$invalid">This form hasn't been filled properly</p>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -216,6 +218,9 @@ form {
   justify-content: space-between;
 }
 
+.signup-page {
+  height: 100vh;
+}
 .b-h-w-g > fieldset {
   width: 24%;
 }
