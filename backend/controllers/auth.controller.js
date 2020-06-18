@@ -1,5 +1,6 @@
 'use strict';
 
+
 var jwt = require('jsonwebtoken'),
     db = require('../services/database.mysql'),
     config = require('../config/db.config');
