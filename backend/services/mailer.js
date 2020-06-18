@@ -1,15 +1,38 @@
-var nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 
-let testAccount = nodemailer.createTestAccount();
+let emailSender = {};
 
 let transporter = nodemailer.createTransport({
-    host: ,
-    port: 465,
-    secure: true,
+    service: 'gmail',
     auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
-    },
+        pass: 'OSPROJECT',   
+        user: 'gdrive0012@gmail.com'
+    }
 });
 
-module.exports = transporter;
+let mailOptions = {
+    from: 'gdrive0012@gmail.com',
+    subject: 'Testing nodemailer',
+    text: 'Hey fella it works'
+};
+
+let mailSender = (req, res, next) => {
+    console.log("mailSender")
+    console.log(res.locals.email)
+    let newMailOptions = {
+        ...mailOptions,
+        to: res.locals.email
+    }
+    console.log(newMailOptions);
+    transporter.sendMail(newMailOptions, function(err ,data){
+    if (err) {
+        console.log('Error:', err);
+    } else {
+        console.log('Email Sent');
+    }
+})
+}
+
+emailSender.mailSender = mailSender;
+
+module.exports = emailSender;

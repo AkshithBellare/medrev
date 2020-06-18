@@ -11,7 +11,6 @@ var jwt = require('jsonwebtoken'),
 var authCon = {};
 
 authCon.register = (req, res, next) => {
-    console.log(req.body.username);
     var username = req.body.username;
     var password = req.body.password;
     var email = req.body.email;
@@ -36,6 +35,8 @@ authCon.register = (req, res, next) => {
         } else {
             res.json({message: 'success'});
             console.log(`Added user ${username} to database`);
+            res.locals.email = email;
+            next();
         }
     });
 };

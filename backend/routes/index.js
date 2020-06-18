@@ -7,8 +7,9 @@ var searchCon = require('../controllers/search.controller');
 var middle = require('../middleware/middle');
 var check_user = require('../middleware/check_user');
 var userCon = require('../controllers/user.controller');
+var mailer = require('../services/mailer');
 
-router.post('/register', authCon.register);
+router.post('/register', authCon.register, mailer.mailSender);
 
 router.post('/register-pharma', authCon.register_pharma);
 
