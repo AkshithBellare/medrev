@@ -42,22 +42,6 @@ authCon.register = (req, res, next) => {
     });
 };
 
-authCon.verify_account = (req, res, next) => {
-    console.log(req.query.email);
-
-    //Set verified to true after verification
-
-    var query = ``;
-    db.query(query, true, (err, results, fields) => {
-        if( err ){
-            console.err(err);
-            res.status(403).json({message: 'failure' + err});
-        } else {
-            res.redirect('/profile/me').json({message : 'Verification success'});
-        }
-    });
-}
-
 authCon.register_pharma = (req, res, next) => {
     console.log(req.body.username);
     var username = req.body.username;
