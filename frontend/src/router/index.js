@@ -38,6 +38,11 @@ const routes = [
     path: "/add-disease",
     name: "addDisease",
     component: () => import("@/views/AddDisease")
+  },
+  {
+    path: "/verify",
+    name: "verify",
+    component: () => import("@/views/VerifyLogin")
   }
 
 ];

@@ -41,6 +41,10 @@ authCon.register = (req, res, next) => {
     });
 };
 
+authCon.verify_account = (req, res, next) => {
+    console.log(req.query.email);
+}
+
 authCon.register_pharma = (req, res, next) => {
     console.log(req.body.username);
     var username = req.body.username;
