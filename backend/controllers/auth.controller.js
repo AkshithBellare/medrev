@@ -3,8 +3,7 @@
 
 var jwt = require('jsonwebtoken'),
     db = require('../services/database.mysql'),
-    config = require('../config/db.config'),
-    mailer = require('../services/mailer');
+    config = require('../config/db.config');
 
 // var authCon = {
 //     comparePasswords: comparePasswords
