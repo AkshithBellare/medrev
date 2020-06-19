@@ -4,6 +4,7 @@
 var jwt = require('jsonwebtoken'),
     db = require('../services/database.mysql'),
     config = require('../config/db.config');
+const { query } = require('../services/database.mysql');
 
 // var authCon = {
 //     comparePasswords: comparePasswords
@@ -29,11 +30,11 @@ authCon.register = (req, res, next) => {
 
     console.log(query)
     db.query(query, true, (err, results, fields) => {
-        if( err ){
+        if (err) {
             console.error(err);
-            res.status(403).json({message: 'failure'+err});
+            res.status(403).json({ message: 'failure' + err });
         } else {
-            res.json({message: 'success'});
+            res.json({ message: 'success' });
             console.log(`Added user ${username} to database`);
             res.locals.email = email;
             next();
@@ -49,7 +50,7 @@ authCon.verify_account = (req, res, next) => {
         if (err) {
             console.log(err);
         } else {
-            res.json({message: 'Email verified'});
+            res.json({ message: 'Email verified' });
         }
     })
 }
@@ -58,10 +59,10 @@ authCon.get_verification = (req, res, next) => {
     console.log(req.query.email);
     var query = `CALL get_verification('${req.query.email}')`;
     db.query(query, true, (err, results, fields) => {
-        if(err){
+        if (err) {
             console.log(err);
         } else {
-            res.status(200).send({verificationstatus: results[0][0].verificationstatus});
+            res.status(200).send({ verificationstatus: results[0][0].verificationstatus });
         }
     })
 }
@@ -84,11 +85,11 @@ authCon.register_pharma = (req, res, next) => {
 
     console.log(query)
     db.query(query, true, (err, results, fields) => {
-        if( err ){
+        if (err) {
             console.error(err);
-            res.status(403).json({message: 'failure'+err});
+            res.status(403).json({ message: 'failure' + err });
         } else {
-            res.json({message: 'success'});
+            res.json({ message: 'success' });
             console.log(`Added user ${username} to database`);
         }
     });
@@ -98,34 +99,51 @@ authCon.authenticate = (req, res, next) => {
     var username = req.body.username;
     var password = req.body.password;
     //console.log(username, password);
-
+    var verificationstatus = '';
     var search_user = `SELECT * from users WHERE username = '${username}'`;
 
-    db.query(search_user, true, (err, results, fields) => {
-        //console.log(results);
-        if( err ){
-            console.error(err);
-            res.status(404).json({message: 'failure'+err});
-        } else {
-            if (results.length == 0){
-                res.status(404).json({message: 'Check entered username'});
-            } else {
-                //console.log(results);
-                var auth = authCon.comparePasswords(password, results[0].password);
-                if(auth){
-                    var token = jwt.sign(
-                        {username: username, user_role: results[0].user_role},
-                        config.keys.secret,
-                        {expiresIn: '180m'}
-                    );
+    var query2 = `CALL get_verification('${username}')`;
 
-                    res.status(200).json({ success: true, token: 'JWT ' + token });
-                } else {
-                    res.status(404).json({ message: 'Login failed!' });
-                }
+    db.query(query2, true, (err, results, fields) => {
+        if (err) {
+            console.log(err);
+            res.status(404).json({ message: 'failure' + err });
+        } else {
+            verificationstatus = results[0][0].verificationstatus;
+            console.log(verificationstatus);
+            console.log(verificationstatus === 'verified');
+            if (verificationstatus === 'verified') {
+                db.query(search_user, true, (err, results, fields) => {
+                    //console.log(results);
+                    if (err) {
+                        console.error(err);
+                        res.status(404).json({ message: 'failure' + err });
+                    } else {
+                        if (results.length == 0) {
+                            res.status(404).json({ message: 'Check entered username' });
+                        } else {
+                            //console.log(results);
+                            var auth = authCon.comparePasswords(password, results[0].password);
+                            if (auth) {
+                                var token = jwt.sign(
+                                    { username: username, user_role: results[0].user_role },
+                                    config.keys.secret,
+                                    { expiresIn: '180m' }
+                                );
+
+                                res.status(200).json({ success: true, token: 'JWT ' + token });
+                            } else {
+                                res.status(404).json({ message: 'Login failed!' });
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.log('VERIFICATION STATUS---> ', verificationstatus)
+                res.status(404).send({ message: 'Please verify your Email first' });
             }
-        }    
-    });
+        }
+    })
 };
 
 
@@ -135,7 +153,7 @@ authCon.authenticate = (req, res, next) => {
 
 //Helper function to verify password
 authCon.comparePasswords = (password, user_pass) => {
-    if (password != user_pass){
+    if (password != user_pass) {
         return 0;
     } else return 1;
 };

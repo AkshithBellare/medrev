@@ -26,7 +26,9 @@
     <div class="errors">
       <p v-if="empty && uiState=='submit clicked'">Fill the form before submitting</p>
       <p v-else-if="errors && uiState=='submit clicked'">This form isn't filled properly</p>
+      <p v-else-if="verificationerror === 'Please verify your Email first'">Email hasn't been verified</p>
       <p v-else-if="getErrors">Check your details again!</p>
+
     </div>
   </div>
 </template>
@@ -45,7 +47,8 @@ export default {
       formResponses: {
         username: "",
         password: ""
-      }
+      },
+      verificationerror: null,
     };
   },
 
@@ -66,10 +69,14 @@ export default {
       this.empty = !this.$v.formResponses.$anyDirty;
       this.errors = this.$v.formResponses.$invalid;
       this.uiState = "submit clicked";
+      this.verificationerror = null;
       if (this.errors == false && this.empty == false) {
         this.uiState = "form submitted";
         this.$store.dispatch(LOGIN, { username, password }).then(() => {
           this.$router.push({ name: "home" });
+        }).catch((error) => {
+          console.log('ERROR--->', error.response.data.message);
+          this.verificationerror = error.response.data.message;
         });
       }
     }
