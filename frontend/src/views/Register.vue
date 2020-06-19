@@ -29,11 +29,31 @@
           <input type="number" placeholder="Phone Number" v-model.lazy="$v.user.ph_number.$model" />
         </fieldset>
 
-        <div class="b-h-w-g">
-          <fieldset>
-            <input type="text" placeholder="Blood group" v-model.lazy="$v.user.blood_grp.$model" />
-          </fieldset>
 
+
+        <div class="b-h-w-g">
+          <!-- <fieldset>
+            <input type="text" placeholder="Blood group" v-model.lazy="$v.user.blood_grp.$model" />
+          </fieldset> -->
+
+          <fieldset>
+              <select id="bloodgrpups" name="bloodgrpList" form="blood_grp" v-model="user.blood_grp">
+                <option value="" selected>Blood group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+          </fieldset>
+          
+
+
+
+          
           <fieldset>
             <input type="text" placeholder="Height (cms)" v-model.lazy="$v.user.height.$model" />
           </fieldset>
@@ -42,8 +62,13 @@
             <input type="text" placeholder="Weight (kg)" v-model.lazy="$v.user.weight.$model" />
           </fieldset>
 
+
           <fieldset>
-            <input type="text" placeholder="Gender (M/F)" v-model.lazy="$v.user.gender.$model" />
+              <select id="genders" name="genderList" form="genderForm" v-model="user.gender">
+                <option value="" selected>Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
           </fieldset>
         </div>
 
@@ -75,7 +100,8 @@
 </template>
 
 <script>
-import Datepicker from "vuejs-datepicker";
+import Datepicker from "vuejs-datepicker"
+
 import {
   required,
   email,
@@ -91,6 +117,7 @@ export default {
       uiState: "submit not clicked",
       errors: false,
       empty: false,
+      blood_groups: ['A+','A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
       user: {
         name: "",
         username: "",
@@ -108,7 +135,7 @@ export default {
   },
 
   components: {
-    Datepicker
+    Datepicker,
   },
 
   validations: {
@@ -270,8 +297,7 @@ input[type="submit"]:active {
 }
 
 #label {
-  font-family: "Raleway", sans-serif;
-  margin: 8px;
+  font-family: "Raleway"
 }
 
 @media screen and (max-width: 800px) {
