@@ -24,7 +24,7 @@ let mailSender = (req, res, next) => {
         to: res.locals.email,
         html: `
                     <body>
-                        <a href="http://localhost:8080/verify">Verify REGISTRATION</a>
+                        <a href="http://localhost:8080/#/verify/${res.locals.email}">Verify REGISTRATION</a>
                     </body>
               `
     }

@@ -40,7 +40,7 @@ const routes = [
     component: () => import("@/views/AddDisease")
   },
   {
-    path: "/verify",
+    path: "/verify/:email",
     name: "verify",
     component: () => import("@/views/VerifyLogin")
   }

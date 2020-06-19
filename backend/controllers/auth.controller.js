@@ -42,6 +42,31 @@ authCon.register = (req, res, next) => {
     });
 };
 
+authCon.verify_account = (req, res, next) => {
+    console.log(req.query.email);
+    var query = `CALL verify_account('${req.query.email}')`
+    console.log(query);
+    db.query(query, true, (err, results, fields) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({message: 'Email verified'});
+        }
+    })
+}
+
+authCon.get_verification = (req, res, next) => {
+    console.log(req.query.email);
+    var query = `CALL get_verification('${req.query.email}')`;
+    db.query(query, true, (err, results, fields) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.status(200).send({verificationstatus: results[0][0].verificationstatus});
+        }
+    })
+}
+
 authCon.register_pharma = (req, res, next) => {
     console.log(req.body.username);
     var username = req.body.username;
