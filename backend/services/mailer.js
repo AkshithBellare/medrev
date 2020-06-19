@@ -34,7 +34,7 @@ let mailSender = (req, res, next) => {
             console.log('Error:', err);
         } else {
             console.log('Email Sent');
-            res.redirect('/login').json({message: 'Verification email sent. Please check your mail.'});
+            next();
         }
     })
 
