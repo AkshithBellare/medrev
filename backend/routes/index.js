@@ -47,4 +47,6 @@ router.get('/drug/get-similardrugs', drugCon.get_similardrugs);
 
 router.get('/drug/get-diseasescured', drugCon.get_diseasescured);
 
+router.get('/verify', authCon.verify_account);
+
 module.exports = router;
