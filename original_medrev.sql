@@ -33,7 +33,7 @@ CREATE TABLE `comments` (
   KEY `get_comments_index` (`uid`,`did`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`did`) REFERENCES `drugs` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +42,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+INSERT INTO `comments` VALUES (81,16,130,'Ibuprofen is a great drug.'),(85,16,128,'A comment by akshith'),(86,16,141,'This cured my fever\n');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +69,7 @@ CREATE TABLE `disease_authors` (
 
 LOCK TABLES `disease_authors` WRITE;
 /*!40000 ALTER TABLE `disease_authors` DISABLE KEYS */;
-INSERT INTO `disease_authors` VALUES (54,16),(56,16),(57,16);
+INSERT INTO `disease_authors` VALUES (54,16),(56,16),(57,16),(72,16);
 /*!40000 ALTER TABLE `disease_authors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +86,7 @@ CREATE TABLE `diseases` (
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`diseaseid`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +95,7 @@ CREATE TABLE `diseases` (
 
 LOCK TABLES `diseases` WRITE;
 /*!40000 ALTER TABLE `diseases` DISABLE KEYS */;
-INSERT INTO `diseases` VALUES ('Pneumonia',54,'Pneumonia is an inflammation of the lungs caused by a bacterial, viral, or fungal infection.'),('Fever',56,'Fever, also referred to as pyrexia, is defined as having a temperature above the normal range due to an increase in the body\'s temperature set point.'),('Pain',57,'Pain is a distressing feeling often caused by intense or damaging stimuli.');
+INSERT INTO `diseases` VALUES ('Pneumonia',54,'Pneumonia is an inflammation of the lungs caused by a bacterial, viral, or fungal infection.'),('Fever',56,'Fever, also referred to as pyrexia, is defined as having a temperature above the normal range due to an increase in the body\'s temperature set point.'),('Pain',57,'Pain is a distressing feeling often caused by intense or damaging stimuli.'),('Conjuctivitis',72,'Conjunctivitis is  an inflammation of the transparent membrane (conjunctiva) that lines your eyelids and part of your eyeballs,'),('Back Pain',74,'Pain in the back'),('Headache',76,'pain in the head'),('Vertigo',77,'A new disease'),('A new disease',79,'a description');
 /*!40000 ALTER TABLE `diseases` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +122,7 @@ CREATE TABLE `drug_authors` (
 
 LOCK TABLES `drug_authors` WRITE;
 /*!40000 ALTER TABLE `drug_authors` DISABLE KEYS */;
-INSERT INTO `drug_authors` VALUES (127,16),(128,16),(129,16),(130,16);
+INSERT INTO `drug_authors` VALUES (127,16),(128,16),(129,16),(130,16),(139,16),(141,16),(142,16);
 /*!40000 ALTER TABLE `drug_authors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +144,7 @@ CREATE TABLE `drugs` (
   `num_of_ratings` int DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `search_drug_index` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +153,7 @@ CREATE TABLE `drugs` (
 
 LOCK TABLES `drugs` WRITE;
 /*!40000 ALTER TABLE `drugs` DISABLE KEYS */;
-INSERT INTO `drugs` VALUES (127,'levofloxacin','Levofloxacin is a fluoroquinolone (flor-o-KWIN-o-lone) antibiotic that fights bacteria in the body. Levofloxacin is used to treat different types of bacterial infections.','Applies to the following strengths: 25 mg/mL; 750 mg/150 mL; 250 mg/50 mL; 500 mg/100 mL; 250 mg; 500 mg; 750 mg','2020-06-07 18:34:14','2020-06-07 18:34:14',0,0),(128,'Paracetamol','Paracetamol is used to treat many conditions such as headache, muscle aches, arthritis, backache, toothaches, colds, and fevers. ','Applies to the following strengths: 160 mg; 80 mg/0.8 mL; 160 mg/5 mL; 500 mg; 650 mg; 80 mg;','2020-06-07 18:45:46','2020-06-07 23:50:07',3,6),(129,'Aspirin','Aspirin is used to reduce fever and relieve mild to moderate pain from conditions such as muscle aches, toothaches, common cold, and headaches. It may also be used to reduce pain and swelling in conditions such as arthritis. ','Applies to the following strengths: 800 mg; 500 mg; 325 mg; 81 mg; buffered 500 mg; buffered 325 mg; buffered 81 mg; 9','2020-06-07 18:47:34','2020-06-07 18:47:34',0,0),(130,'Ibuprofen','Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID). It works by reducing hormones that cause inflammation and pain in the body.','Applies to the following strengths: 100 mg/5 mL; 800 mg; 300 mg; 600 mg; 400 mg; 200 mg; 50 mg/1.25 mL; 50 mg; 100 mg; 10 mg/mL; 100 mg/mL; 800 mg/200 mL','2020-06-07 19:13:12','2020-06-07 19:26:28',3.5,1);
+INSERT INTO `drugs` VALUES (127,'levofloxacin','Levofloxacin is a fluoroquinolone (flor-o-KWIN-o-lone) antibiotic that fights bacteria in the body. Levofloxacin is used to treat different types of bacterial infections.','Applies to the following strengths: 25 mg/mL; 750 mg/150 mL; 250 mg/50 mL; 500 mg/100 mL; 250 mg; 500 mg; 750 mg','2020-06-07 18:34:14','2020-06-11 15:31:36',1.5,1),(128,'Paracetamol','Paracetamol is used to treat many conditions such as headache, muscle aches, arthritis, backache, toothaches, colds, and fevers. ','Applies to the following strengths: 160 mg; 80 mg/0.8 mL; 160 mg/5 mL; 500 mg; 650 mg; 80 mg;','2020-06-07 18:45:46','2020-06-19 20:27:41',3.70833,12),(129,'Aspirin','Aspirin is used to reduce fever and relieve mild to moderate pain from conditions such as muscle aches, toothaches, common cold, and headaches. It may also be used to reduce pain and swelling in conditions such as arthritis. ','Applies to the following strengths: 800 mg; 500 mg; 325 mg; 81 mg; buffered 500 mg; buffered 325 mg; buffered 81 mg; 9','2020-06-07 18:47:34','2020-06-11 15:42:38',3.5,1),(130,'Ibuprofen','Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID). It works by reducing hormones that cause inflammation and pain in the body.','Applies to the following strengths: 100 mg/5 mL; 800 mg; 300 mg; 600 mg; 400 mg; 200 mg; 50 mg/1.25 mL; 50 mg; 100 mg; 10 mg/mL; 100 mg/mL; 800 mg/200 mL','2020-06-07 19:13:12','2020-06-11 14:11:50',3.83333,3),(139,'Alamast','Pemirolastis used to treat the itching in your eyes that happens with allergies.','The recommended dose is one to two drops in each affected eye four times daily.','2020-06-11 16:17:37','2020-06-11 16:17:37',0,0),(140,'Adderall','a drug','2 tablets a day ','2020-06-12 10:52:01','2020-06-12 10:52:01',0,0),(141,'Crocin','Drug for fever','one tablet','2020-06-12 13:51:11','2020-06-12 13:51:28',5,1),(142,'new drug','drug description','one tablet a day','2020-06-12 14:26:58','2020-06-12 14:26:58',0,0),(143,'A new drug','a drug description','doctor\'s prescription','2020-06-19 20:28:43','2020-06-19 20:28:43',0,0),(144,'Drug2','random description','dosage','2020-06-19 20:29:43','2020-06-19 20:29:43',0,0);
 /*!40000 ALTER TABLE `drugs` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -220,7 +221,7 @@ CREATE TABLE `medication` (
 
 LOCK TABLES `medication` WRITE;
 /*!40000 ALTER TABLE `medication` DISABLE KEYS */;
-INSERT INTO `medication` VALUES (18,128),(18,130);
+INSERT INTO `medication` VALUES (18,128),(18,130),(17,127),(17,127),(17,129),(17,128),(17,128),(16,130),(16,130),(16,141);
 /*!40000 ALTER TABLE `medication` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +274,7 @@ CREATE TABLE `similar_drugs` (
 
 LOCK TABLES `similar_drugs` WRITE;
 /*!40000 ALTER TABLE `similar_drugs` DISABLE KEYS */;
-INSERT INTO `similar_drugs` VALUES (129,128),(130,128),(130,129);
+INSERT INTO `similar_drugs` VALUES (129,128),(130,128),(130,129),(139,128),(140,129),(140,130),(141,128),(142,130),(142,129),(143,130),(143,128);
 /*!40000 ALTER TABLE `similar_drugs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,7 +301,7 @@ CREATE TABLE `treatment` (
 
 LOCK TABLES `treatment` WRITE;
 /*!40000 ALTER TABLE `treatment` DISABLE KEYS */;
-INSERT INTO `treatment` VALUES (54,127),(56,128),(57,129),(56,129),(57,130),(56,130);
+INSERT INTO `treatment` VALUES (54,127),(56,128),(57,129),(56,129),(57,130),(56,130),(72,139),(76,128),(74,140),(56,140),(77,127),(77,128),(77,129),(56,141),(57,141),(74,142),(56,142),(54,143),(57,143),(79,144);
 /*!40000 ALTER TABLE `treatment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,11 +349,12 @@ CREATE TABLE `users` (
   `updatedAt` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `gender` varchar(3) DEFAULT NULL,
   `user_role` varchar(10) NOT NULL,
+  `verified` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`),
   KEY `get_user_index` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,7 +363,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (16,'Akshith Bellare','akshith@bellare.com','akshith','akshithbellare','8218218211','B+','2000-08-15',160,64,'2020-06-05 19:02:56','2020-06-05 19:02:56','M','pharmacist'),(17,'Harshvardhan R','harshvardhan@iris.com','harshvardhan','harshvardhanr','8219897656','B+','2000-08-15',167,77,'2020-06-05 19:03:49','2020-06-05 19:03:49','M','pharmacist'),(18,'Laharish S','laharish@anime.com','laharish','laharishs','6766766768','B+','2000-08-15',167,64,'2020-06-05 19:04:37','2020-06-05 19:04:37','M','user');
+INSERT INTO `users` VALUES (16,'Akshith Bellare','akshith@bellare.com','akshith','akshithbellare','8218218211','B+','2000-08-15',160,64,'2020-06-05 19:02:56','2020-06-19 09:22:15','M','pharmacist',1),(17,'Harshvardhan R','harshvardhan@iris.com','harshvardhan','harshvardhanr','8219897656','B+','2000-08-15',167,77,'2020-06-05 19:03:49','2020-06-19 09:22:08','M','pharmacist',1),(18,'Laharish S','laharish@anime.com','laharish','laharishs','6766766768','B+','2000-08-15',167,64,'2020-06-05 19:04:37','2020-06-19 09:22:08','M','user',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -518,7 +520,7 @@ BEGIN
         SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
 END;
 start transaction;
-insert into medication(uid,drugid) values(uid,did); 
+insert ignore into medication(uid,drugid) values(uid,did); 
 commit;
 end ;;
 DELIMITER ;
@@ -740,7 +742,7 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_medication`(userid int)
 BEGIN
 start transaction;
-select d.name from drugs as d ,medication as m where d.id=m.drugid and m.uid =userid;
+select distinct d.name from drugs as d ,medication as m where d.id=m.drugid and m.uid =userid;
 commit;
 END ;;
 DELIMITER ;
@@ -801,6 +803,32 @@ select * from user_details where username like user_name;
 
 commit;
 end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `get_verification` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_verification`(
+uname varchar(255)
+)
+BEGIN
+	DECLARE verStatus BOOLEAN default false;
+	SELECT verified into verStatus from users where users.username = uname;
+    IF verStatus = 0 THEN 
+		SELECT 'not-verified' as 'verificationstatus';
+	ELSEIF verStatus = 1 THEN SELECT 'verified' as 'verificationstatus';
+    END IF;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -978,6 +1006,32 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `verify_account` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verify_account`(emailID varchar(255))
+begin
+DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+BEGIN
+        ROLLBACK;
+        SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+END;
+start transaction;
+	UPDATE users set verified=true where users.email=emailID;
+commit;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `user_details`
@@ -1006,4 +1060,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-08  8:55:25
+-- Dump completed on 2020-06-21 12:23:41
