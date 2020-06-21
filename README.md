@@ -2,6 +2,7 @@
 Repository for the WTA-254 project.
 
 ## Installation
+Make sure that you add the db user and password in backend/config/db.config.js
 ```
 mysql -u root -p your_db_name < original_medrev.sql
 ```
