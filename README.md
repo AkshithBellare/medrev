@@ -7,10 +7,12 @@ mysql -u root -p your_db_name < original_medrev.sql
 ```
   ### Go to backend under src directory
 ```
+npm install
 npm run start
 ```
   ### Go to frontend under src directory
 ```
+npm install
 npm run serve
 ```
 
